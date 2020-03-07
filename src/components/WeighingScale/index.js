@@ -6,7 +6,8 @@ class WeighingScale extends Component {
     state = {
         currentWeight: 0,
         targetWeight: 0,
-        scaleStatus: "OFF"
+        scaleStatus: "OFF",
+        messages_array:0
     }
 
     componentDidMount(){
@@ -19,9 +20,16 @@ class WeighingScale extends Component {
         })
         mqtt.on('message', (data) => {
             console.log(this.props.data);
-            let payload = this.props.data.pop();        
+            let payload = this.props.data.pop();
             console.log(payload);    
-            this.setState({scaleStatus: true, currentWeight: parseInt(payload.weight), targetWeight: parseInt(payload.weight)});
+            // this.setState({scaleStatus: true, currentWeight: parseInt(payload.weight), targetWeight: parseInt(payload.weight)});
+            this.setState({
+                scaleStatus: true,
+                currentWeight: parseFloat(payload["8"]),
+                targetWeight: parseInt(payload.weight),
+                messages_array : payload["5"],
+            });
+
         })
     }
 
@@ -55,8 +63,8 @@ class WeighingScale extends Component {
                     />
                     <Box align="center">
                         <Box direction="row" align="center" pad={{ bottom: "xsmall" }}>
-                        <Text size="xxlarge" weight="bold">
-                            {this.state.currentWeight}
+                        <Text size="xxlarge" weight="bold" align="center" style={{textAlign: "center"}}>
+                            {this.state.currentWeight} <br/>gms
                         </Text>
                         </Box>
                         <Text>{this.state.targetWeight}</Text>
@@ -67,12 +75,17 @@ class WeighingScale extends Component {
                 <Box size="large" style={{flex: 10, display: "flex", flexDirection: "column", justifyContent: "flex-end", alignItems: "center"}}>
                     {/* <Button onClick={(e) => this.tareScale(e)} round="xxsmall" label="OFF"/> */}
                     <Button onClick={(e) => this.tareScale(e)} round="xxsmall" label="Tare"/>
-                </Box>                
+                </Box>
+                <Box pad="small">
+                    <Text style={{overflow: "wrap"}}>
+                    {this.state.messages_array}
+                    </Text>
+                </Box>
             </Box>
         )
     }
 }
 
 export default subscribe({
-    topic: 'Riku/WeighingScale/Updates'
+    topic: 'Riku/Firmware/PubLCGeneral'
   })(WeighingScale)

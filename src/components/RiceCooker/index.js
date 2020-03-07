@@ -142,5 +142,5 @@ export class RiceCooker extends Component {
 }
 
 export default subscribe({
-    topic: 'Cooktop/Updates'
+    topic: 'Riku/Firmware/PubInduction'
   })(RiceCooker)

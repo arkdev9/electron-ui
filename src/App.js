@@ -36,8 +36,8 @@ import PreCookPipeline from './components/PreCookPipeline';
 //   })
 // );
 
-// const MQTT_ADDRESS = "ws://rpi4-002.local:9001"
-const MQTT_ADDRESS = "ws://localhost:9001"
+const MQTT_ADDRESS = "ws://rpi4-002.local:9001"
+// const MQTT_ADDRESS = "ws://localhost:9001"
 
 function App() {
   return (

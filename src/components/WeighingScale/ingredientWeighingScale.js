@@ -20,7 +20,7 @@ class IngredientWeighingScale extends Component {
             console.log("mqtt connected")
         })
         mqtt.on('message', (data) => {
-            // console.log(this.props.data);
+            console.log(this.props.data);
             let payload = this.props.data.pop();        
             console.log(payload);    
             this.setState({scaleStatus: true, currentWeight: payload.weight, targetWeight: this.props.targetWeight});
@@ -77,5 +77,5 @@ class IngredientWeighingScale extends Component {
 }
 
 export default subscribe({
-    topic: 'Riku/WeighingScale/Updates'
+    topic: 'Riku/Firmware/PubLCGeneral'
   })(IngredientWeighingScale)
