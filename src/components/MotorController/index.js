@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { subscribe } from 'mqtt-react';
 import { Box, Text, Button } from 'grommet';
 import { Home, Download } from 'grommet-icons';
-import PubSubBridge from '../../config/mqttPubSub';
+import * as PubSubBridge from '../../config/mqttPubSub';
 
 class MotorController extends Component {
 
@@ -16,7 +16,7 @@ class MotorController extends Component {
         //MQTT client is passed on
         console.log(topic,message)
         const { mqtt } = this.props;
-        mqtt.publish(topic ? topic : "Riku/Firmware/Control", JSON.stringify(message));
+        mqtt.publish(topic ? topic : "Riku/Firmware/SubParams", JSON.stringify(message));
     }
 
     homeSpiceRack = () => {
@@ -129,5 +129,5 @@ class MotorController extends Component {
     }
 }
 export default subscribe({
-    topic: 'Riku/Firmware/Control'
+    topic: 'Riku/Firmware/SubParams'
   })(MotorController)

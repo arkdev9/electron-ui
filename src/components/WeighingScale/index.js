@@ -23,12 +23,15 @@ class WeighingScale extends Component {
             let payload = this.props.data.pop();
             console.log(payload);    
             // this.setState({scaleStatus: true, currentWeight: parseInt(payload.weight), targetWeight: parseInt(payload.weight)});
-            this.setState({
-                scaleStatus: true,
-                currentWeight: parseFloat(payload["8"]),
-                targetWeight: parseInt(payload.weight),
-                messages_array : payload["5"],
-            });
+            
+            if(payload){
+                this.setState({
+                    scaleStatus: true,
+                    currentWeight: parseFloat(payload["8"]),
+                    targetWeight: parseInt(payload.weight),
+                    messages_array : payload["5"],
+                });
+            }
 
         })
     }

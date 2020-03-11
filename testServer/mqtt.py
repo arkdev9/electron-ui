@@ -55,7 +55,9 @@ mqttc.on_publish = on_publish
 mqttc.on_subscribe = on_subscribe
 # Uncomment to enable debug messages
 # mqttc.on_log = on_log
-mqttc.connect("localhost")
+# mqttc.connect("localhost")
+mqttc.connect("rpi4-002.local")
+
 mqttc.subscribe("Riku/Induction/Control", 0)
 mqttc.subscribe("Riku/Updates")
 
@@ -79,6 +81,7 @@ while True:
     print(sys.getsizeof(payload3))
     # print(c)
     # mqttc.publish("Cooktop/Updates", json.dumps(payload))
-    mqttc.publish("Cooktop/Updates", json.dumps(payload))
-    mqttc.publish("Riku/WeighingScale/Updates", json.dumps(payload2),0)
-    mqttc.publish('LiquidStation/Updates', json.dumps(payload3),0)
+    # mqttc.publish("Cooktop/Updates", json.dumps(payload))
+    # mqttc.publish("Riku/WeighingScale/Updates", json.dumps(payload2),0)
+    # mqttc.publish('LiquidStation/Updates', json.dumps(payload3),0)
+    mqttc.publish('Riku/Firmware/SubParams', json.dumps(payload3),0)
