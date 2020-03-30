@@ -9,6 +9,7 @@ import boil from '../../assets/boil.png';
 import { subscribe } from 'mqtt-react';
 import { Stack, Meter, Box, Text, Button } from 'grommet';
 
+import * as PubSubBridge from '../../config/mqttPubSub';
 
 
 const presets = [
@@ -71,23 +72,34 @@ class InductionCooktop extends Component {
             console.log(data)     
             let currentStatus = this.props.data.pop();
             // this.setState({cooktopStatus: currentStatus, currentTemperature: currentStatus.ir_object_temperature.toFixed(2)});
-            this.setState({cooktopStatus: currentStatus, currentTemperature: currentStatus.cooktopTemperature.toFixed(2)});
-
+            // this.setState({cooktopStatus: currentStatus, currentTemperature: currentStatus.cooktopTemperature.toFixed(2)});
+            
         })
 
     }
 
-    setCooktopTemperature = (temperature) => {
-        const {mqtt} = this.props;
+
+    publishMessage  = (message, topic) =>{
+        // e.preventDefault();
+        //MQTT client is passed on
+        console.log(topic,message)
+        const { mqtt } = this.props;
+        mqtt.publish(topic ? topic : "Riku/Firmware/SubParams", JSON.stringify(message), {retain: true});
+    }
+
+    setInductionCooktopTemperature = (temperature) => {
         this.setState({targetTemperature: temperature});
-        mqtt.publish('Riku/Induction/Control', 'My Message');
     }
 
     startCooktop = () => {
         const {mqtt} = this.props;  
-        console.log("Cooktop Started")
-        mqtt.publish('Riku/Updates', JSON.stringify({activate_cooktop: true}));      
-        mqtt.publish('Riku/Induction/Control', 'My Message');
+        console.log("Cooktop Started")        
+    }
+
+    publishSetInductionCooktopTemperature = () =>  {
+        const {mqtt} = this.props; 
+        let message = PubSubBridge.setInductionTemperature(this.state.targetTemperature);
+        this.publishMessage(message)
     }
 
     render() {
@@ -128,7 +140,7 @@ class InductionCooktop extends Component {
                 </Box>
                 </div>
                 <div style={{flex: 10, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
-                    <Button onClick={(e) => this.startCooktop(e)} primary round="xsmall" label="ON"/>
+                    <Button onClick={(e) => this.publishSetInductionCooktopTemperature(e)} primary round="xsmall" label="ON"/>
                 </div>
                 <div style={{flex:1}}>                    
                     <h5 style={{margin: 5}}>Presets:</h5>
@@ -144,7 +156,7 @@ class InductionCooktop extends Component {
                                 gap="xsmall"
                                 style={{marginRight: 5}}
                                 hoverIndicator
-                                onClick={() => this.setState({targetTemperature: preset.temperature}) }
+                                onClick={() => this.setInductionCooktopTemperature(preset.temperature)}
                                 key={preset.name}
                             >
                                 <img src={preset.icon}/>
@@ -163,5 +175,5 @@ class InductionCooktop extends Component {
 }
 
 export default subscribe({
-    topic: 'Cooktop/Updates'
+    topic: 'Riku/Firware/PubAll'
   })(InductionCooktop)

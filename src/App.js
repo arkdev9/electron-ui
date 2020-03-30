@@ -25,6 +25,7 @@ import myTheme from './config/myTheme';
 
 import { Box, extendDefaultTheme } from "grommet";
 import PreCookPipeline from './components/PreCookPipeline';
+import TestRecipe from './components/Recipe/testRecipe';
 
 // extendDefaultTheme(
 //   deepMerge(base, {
@@ -36,8 +37,10 @@ import PreCookPipeline from './components/PreCookPipeline';
 //   })
 // );
 
-const MQTT_ADDRESS = "ws://rpi4-002.local:9001"
-// const MQTT_ADDRESS = "ws://localhost:9001"
+// const MQTT_ADDRESS = "ws://rpi4-002.local:9001"
+const MQTT_ADDRESS = "ws://localhost:9000"
+
+// const MQTT_ADDRESS  = "ws://broker.mqttdashboard.com:8000"
 
 function App() {
   return (
@@ -58,6 +61,8 @@ function App() {
             <Route path="/motorController" component={MotorController}/>
             <Route path="/scheduler" component={Scheduler}/>
             <Route path="/preCookPipeline/:recipeId" component={PreCookPipeline }/>
+            <Route path="/testRecipe" component={TestRecipe }/>
+
             <Route path="/" component={Home}/>
           </Switch>
           {/* <Footer/> */}

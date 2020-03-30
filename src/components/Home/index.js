@@ -12,6 +12,7 @@ import liquidStation from '../../assets/liquidStation.png';
 import settings from '../../assets/settings.png'
 import { Image } from 'grommet';
 import { Grommet, Box, Text } from "grommet";
+import { Restaurant } from 'grommet-icons';
 
 const HomeContainer = styled.div`
 display: flex;
@@ -81,6 +82,10 @@ function Home() {
           <CardButton to="/motorController">
               <img src={settings}/>
               <span>Motor Controller</span>
+          </CardButton>
+          <CardButton to="/testRecipe">
+              <Restaurant/>
+              <span>Cook Recipe</span>
           </CardButton>
         </CenteredFlexDiv>
       </HomeContainer>

@@ -2,6 +2,18 @@
 // Message structure
 // [ "CONTROL_STRING", "ACTION_STRING", ...PARAMS ]
 
+
+function generateRandomString(length) {
+    var result           = '';
+    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for ( var i = 0; i < length; i++ ) {
+       result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+ }
+
+
 // Contrl Dictionary
 const ControlPubDictionary = {
     "MQTT_RICE_CTRL": '20',
@@ -11,8 +23,8 @@ const ControlPubDictionary = {
     "MQTT_OILWAT_CTRL": '24',
     "MQTT_LASTCMD_STAT": '25',
     "MQTT_LASTCMD_VAL": '26',
-    "MQTT_STATUS1": '27',
-    "MQTT_STATUS2": '28',
+    "MQTT_STATUS1": '27', //automatic
+    "MQTT_STATUS2": '28',  // toogle
     "MQTT_BIST_RESP_CTRL": '29',
 }
 
@@ -56,6 +68,20 @@ const StirrerPubDictionary = {
     "COOK_STAT_COOK_STR": "COOK",
     "COOK_STAT_NULL_STR": "NULL",
     "COOK_STAT_UNKNOWN_STR": "UNKNOWN",
+}
+
+const IngredientRackPubDictionary  = {
+    "INGREDIENT_STAT_IDLE":"0",
+    "INGREDIENT_STAT_STIR":"1",
+    "INGREDIENT_STAT_INDEX":"2",
+    "INGREDIENT_STAT_HOME":"4",
+    "INGREDIENT_STAT_STR":"STATE",
+    "INGREDIENT_STAT_IDLE_STR":"IDLE",
+    "INGREDIENT_STAT_STIR_STR":"STIRRING",
+    "INGREDIENT_STAT_INDEX_STR":"INDEXING",
+    "INGREDIENT_STAT_COOK_STR":"COOK",
+    "INGREDIENT_STAT_NULL_STR":"NULL",
+    "INGREDIENT_STAT_UNKNOWN_STR":"UNKNOWN"
 }
 
 // Liquid Station Control
@@ -122,11 +148,21 @@ function array2Obj(array) {
     let currentObj = {}
     let objKey = array.shift()
     currentObj[objKey] = [...array]
+    // currentObj["packetIdentifier"] = generateRandomString(5)
     return currentObj;
+}
+
+
+export function decodePayload(payload){
+    
 }
 
 export function dispenseSpice(index, weight, pushType) {
     return array2Obj([ControlPubDictionary["MQTT_SPICE_CTRL"], SpicePubDictionary["SPICE_STAT_DISPENSE"], index, weight, pushType])
+}
+
+export function dispenseIngredient(index) {
+    return array2Obj([ControlPubDictionary["MQTT_COOK_CTRL"], IngredientRackPubDictionary["INGREDIENT_STAT_INDEX"], index])
 }
 
 export function homeSpiceRack() {
@@ -138,7 +174,7 @@ export function moveSpiceRack2Position(position) {
 }
 
 export function moveIngredientRack2Position(position) {
-    return array2Obj([ControlPubDictionary["MQTT_COOK_CTRL"], InductionPubDictionary["COOK_STAT_INDEX"], position])
+    return array2Obj([ControlPubDictionary["MQTT_COOK_CTRL"], IngredientRackPubDictionary["INGREDIENT_STAT_INDEX"], position])
 }
 
 export function dispenseOil(volume) {
@@ -166,9 +202,10 @@ export function setInductionTemperature(temperature) {
 }
 
 export function switchOnStirring() {
-    return array2Obj([ControlPubDictionary["MQTT_COOK_CTRL"], InductionPubDictionary["COOK_STAT_STIR"], InductionPubDictionary['COOK_STAT_STIR_STR'], "ON"])
+    return array2Obj([ControlPubDictionary["MQTT_COOK_CTRL"], StirrerPubDictionary["COOK_STAT_STIR"], 1])
 }
 
 export function switchOffStirring() {
-    return array2Obj([ControlPubDictionary["MQTT_COOK_CTRL"], InductionPubDictionary["COOK_STAT_STIR"], InductionPubDictionary['COOK_STAT_STIR_STR'], "OFF"])
+    return array2Obj([ControlPubDictionary["MQTT_COOK_CTRL"], StirrerPubDictionary["COOK_STAT_STIR"], 0])
+
 }
