@@ -36,12 +36,13 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "rm -rf electron/build && react-scripts build && mv build electron/build",
+    "build-react": "rm -rf ./electron/build && react-scripts build && mv ./build ./electron/build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "electron": "electron .",
+    "build": "electron-builder --mac --windows --linux",
+    "release": "electron-builder --mac --windows --linux --publish always",
     "pack": "electron-builder --dir",
-    "dist": "electron-builder",
     "postinstall": "electron-builder install-app-deps"
   },
   "eslintConfig": {
