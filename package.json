@@ -1,7 +1,7 @@
 {
   "name": "riku-on-device",
   "author": "Futuristic Labs <abhishek.kasireddy@ftlabs.io>",
-  "version": "0.0.1",
+  "version": "0.0.11",
   "private": true,
   "main": "electron/main.js",
   "build": {
@@ -13,10 +13,16 @@
     "extends": null,
     "linux": {
       "target": [
-        "AppImage",
         "deb"
       ]
-    }
+    },
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "futuristiclabs",
+        "repo": "riku-device-ui"
+      }
+    ]
   },
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
@@ -41,9 +47,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "electron": "electron .",
-    "build": "electron-builder",
-    "release": "electron-builder --mac --windows --linux --publish always",
-    "pack": "electron-builder --dir",
+    "build": "yarn build-react && electron-builder",
+    "release": "yarn build-react && electron-builder --linux --publish always",
     "postinstall": "electron-builder install-app-deps"
   },
   "eslintConfig": {
@@ -63,6 +68,11 @@
   },
   "devDependencies": {
     "electron": "^9.0.5",
-    "electron-builder": "^22.7.0"
+    "electron-builder": "^22.7.0",
+    "electron-updater": "^4.3.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/futuristiclabs/riku-device-ui.git"
   }
 }

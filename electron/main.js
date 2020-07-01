@@ -1,5 +1,6 @@
 require("dotenv").config();
 const { app, BrowserWindow } = require("electron");
+const { autoUpdater } = require("electron-updater");
 
 function createWindow() {
   let win = new BrowserWindow({
@@ -8,6 +9,10 @@ function createWindow() {
     webPreferences: {
       nodeIntegration: true,
     },
+  });
+
+  win.once("ready-to-show", () => {
+    autoUpdater.checkForUpdatesAndNotify();
   });
 
   if (process.env.NODE_ENV === "production") {
@@ -20,6 +25,8 @@ function createWindow() {
 }
 
 app.whenReady().then(createWindow);
+
+app.on("");
 
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
@@ -40,3 +47,11 @@ app.on(
     callback(true);
   }
 );
+
+autoUpdater.on("update-available", () => {
+  win.webContents.send("update_available");
+});
+
+autoUpdater.on("update-downloaded", () => {
+  win.webContents.send("update_downloaded");
+});
