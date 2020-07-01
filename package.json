@@ -40,7 +40,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "electron": "electron .",
-    "build": "electron-builder --mac --windows --linux",
+    "build": "electron-builder",
     "release": "electron-builder --mac --windows --linux --publish always",
     "pack": "electron-builder --dir",
     "postinstall": "electron-builder install-app-deps"
