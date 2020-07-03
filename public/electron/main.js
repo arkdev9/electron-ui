@@ -2,10 +2,11 @@ require("dotenv").config();
 const { app, BrowserWindow } = require("electron");
 const { autoUpdater } = require("electron-updater");
 
+var win;
 function createWindow() {
-  let win = new BrowserWindow({
-    width: 800,
-    height: 600,
+  win = new BrowserWindow({
+    width: 1200,
+    height: 800,
     webPreferences: {
       nodeIntegration: true,
     },
@@ -16,17 +17,15 @@ function createWindow() {
   });
 
   if (process.env.NODE_ENV === "production") {
-    win.loadFile("./build/index.html");
+    win.loadFile("build/index.html");
   } else {
     win.loadURL("http://localhost:3000/");
   }
 
-  // win.webContents.openDevTools();
+  win.webContents.openDevTools();
 }
 
 app.whenReady().then(createWindow);
-
-app.on("");
 
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
@@ -40,18 +39,3 @@ app.on("activate", () => {
   }
 });
 
-app.on(
-  "certificate-error",
-  (event, webContents, url, error, cert, callback) => {
-    event.preventDefault();
-    callback(true);
-  }
-);
-
-autoUpdater.on("update-available", () => {
-  win.webContents.send("update_available");
-});
-
-autoUpdater.on("update-downloaded", () => {
-  win.webContents.send("update_downloaded");
-});
