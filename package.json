@@ -1,30 +1,10 @@
 {
   "name": "riku-on-device",
   "author": "Futuristic Labs <abhishek.kasireddy@ftlabs.io>",
-  "version": "0.0.14",
+  "version": "0.0.140",
   "private": true,
   "homepage": "build/",
   "main": "build/electron/main.js",
-  "build": {
-    "appId": "ftlabs.riku",
-    "files": [
-      "build/**/*",
-      "build/main.js"
-    ],
-    "extends": null,
-    "linux": {
-      "target": [
-        "deb"
-      ]
-    },
-    "publish": [
-      {
-        "provider": "github",
-        "owner": "futuristiclabs",
-        "repo": "riku-device-ui"
-      }
-    ]
-  },
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
