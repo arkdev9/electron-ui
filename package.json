@@ -3,8 +3,7 @@
   "author": "Futuristic Labs <abhishek.kasireddy@ftlabs.io>",
   "version": "0.0.140",
   "private": true,
-  "homepage": "build/",
-  "main": "build/electron/main.js",
+  "homepage": "./",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",

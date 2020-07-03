@@ -1,4 +1,9 @@
-on: push
+name: Build/release
+
+on:
+  push:
+    tags:
+      - "*"
 
 jobs:
   build:
