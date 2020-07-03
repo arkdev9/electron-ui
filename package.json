@@ -3,6 +3,7 @@
   "author": "Futuristic Labs <abhishek.kasireddy@ftlabs.io>",
   "version": "0.0.11",
   "private": true,
+  "homepage": "build/",
   "main": "build/electron/main.js",
   "build": {
     "appId": "ftlabs.riku",
@@ -42,15 +43,10 @@
     "voca": "^1.4.0"
   },
   "scripts": {
-    "start-react": "BROWSER=none react-scripts start",
-    "build-react": "export CI=false && react-scripts build",
-    "start-electron": "electron .",
-    "build-electron": "electron-builder",
+    "start": "BROWSER=none react-scripts start",
+    "build": "export CI=false && react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "build": "yarn build-react && electron-builder",
-    "release": "yarn build-react && electron-builder --linux --publish always",
-    "postinstall": "electron-builder install-app-deps"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -66,11 +62,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "electron": "^9.0.5",
-    "electron-builder": "^22.7.0",
-    "electron-updater": "^4.3.1"
   },
   "repository": {
     "type": "git",

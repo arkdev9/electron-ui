@@ -1,29 +1,56 @@
-name: Build/release
-
 on: push
 
 jobs:
-  release:
-    runs-on: ${{ matrix.os }}
-
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-
+  build:
+    runs-on: ubuntu-latest
     steps:
-      - name: Check out Git repository
-        uses: actions/checkout@v1
-
-      - name: Install Node.js, NPM and Yarn
+      - name: Clone repository
+        uses: actions/checkout@v2
+      - name: Use Node.js 12.x
         uses: actions/setup-node@v1
         with:
-          node-version: 10
-
-      - name: Build/release Electron app
-        uses: samuelmeuli/action-electron-builder@v1
+          node-version: 12.x
+      - name: Install dependencies
+        run: npm install
+      # - name: Test
+      #   run: npm test
+      #   env:
+      #     CI: false
+      - name: Generate build
+        run: npm run build
         env:
-          GH_TOKEN: ${{ secrets.github_token }}
+          CI: false
+      # Share artifact inside workflow
+      - name: Share artifact inside workflow
+        uses: actions/upload-artifact@v1
         with:
-          # GitHub token, automatically provided to the action
-          github_token: ${{ secrets.github_token }}
-          release: ${{ startsWith(github.ref, 'refs/tags/v') }}
+          name: react-github-actions-build
+          path: build
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      # Download previously shared build
+      - name: Get artifact
+        uses: actions/download-artifact@v1
+        with:
+          name: react-github-actions-build
+      # Zip the build using external action
+      - name: Zip build
+        uses: thedoctor0/zip-release@master
+        with:
+          filename: react-github-actions-release-build.zip
+          path: react-github-actions-build
+      # Upload as an artifact of the current workflow
+      - name: Upload build zip artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: react-github-actions-release-build.zip
+          path: react-github-actions-release-build.zip
+      # Make official GitHub release which will trigger
+      # sending the mail with link for access
+      - name: Release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: react-github-actions-release-build.zip
+          body: https://react-github-actions.s3.amazonaws.com/index.html
+          token: ${{ secrets.GITHUB_TOKEN }}
