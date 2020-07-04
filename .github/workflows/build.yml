@@ -29,7 +29,7 @@ jobs:
       - name: Share artifact inside workflow
         uses: actions/upload-artifact@v1
         with:
-          name: react-github-actions-build
+          name: ui-build
           path: build
   release:
     runs-on: ubuntu-latest
@@ -39,24 +39,23 @@ jobs:
       - name: Get artifact
         uses: actions/download-artifact@v1
         with:
-          name: react-github-actions-build
+          name: ui-build
       # Zip the build using external action
       - name: Zip build
         uses: thedoctor0/zip-release@master
         with:
-          filename: react-github-actions-release-build.zip
-          path: react-github-actions-build
+          filename: ui-build.zip
+          path: ui-build
       # Upload as an artifact of the current workflow
       - name: Upload build zip artifact
         uses: actions/upload-artifact@v1
         with:
-          name: react-github-actions-release-build.zip
-          path: react-github-actions-release-build.zip
+          name: ui-build.zip
+          path: ui-build.zip
       # Make official GitHub release which will trigger
       # sending the mail with link for access
       - name: Release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: react-github-actions-release-build.zip
-          body: https://react-github-actions.s3.amazonaws.com/index.html
+          artifacts: ui-build.zip
           token: ${{ secrets.GITHUB_TOKEN }}
