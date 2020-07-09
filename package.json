@@ -1,23 +1,9 @@
 {
   "name": "riku-on-device",
   "author": "Futuristic Labs <abhishek.kasireddy@ftlabs.io>",
-  "version": "0.1.0",
+  "version": "0.0.142",
   "private": true,
-  "main": "electron/main.js",
-  "build": {
-    "appId": "ftlabs.riku",
-    "files": [
-      "./electron/build/**/*",
-      "./electron/main.js"
-    ],
-    "extends": null,
-    "linux": {
-      "target": [
-        "AppImage",
-        "deb"
-      ]
-    }
-  },
+  "homepage": "./",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
@@ -36,15 +22,10 @@
     "voca": "^1.4.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build-react": "rm -rf ./electron/build && react-scripts build && mv ./build ./electron/build",
+    "start": "BROWSER=none react-scripts start",
+    "build": "export CI=false && react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "electron": "electron .",
-    "build": "electron-builder",
-    "release": "electron-builder --mac --windows --linux --publish always",
-    "pack": "electron-builder --dir",
-    "postinstall": "electron-builder install-app-deps"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -61,8 +42,8 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {
-    "electron": "^9.0.5",
-    "electron-builder": "^22.7.0"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/futuristiclabs/riku-device-ui.git"
   }
 }

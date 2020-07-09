@@ -39,6 +39,7 @@ import TestRecipe from './components/Recipe/testRecipe';
 
 // const MQTT_ADDRESS = "ws://rpi4-002.local:9001"
 const MQTT_ADDRESS = "ws://localhost:9000"
+const fs = window.require('fs');
 
 // const MQTT_ADDRESS  = "ws://broker.mqttdashboard.com:8000"
 
@@ -49,6 +50,7 @@ function App() {
         <Connector mqttProps={MQTT_ADDRESS}>
           <Router>          
           {/* <AppHeader  /> */}
+          <button onClick={() => {fs.writeFile("test.txt", "hello", {}, () => {console.log("Hello")})}}>create file</button>
           <Switch>
             <Route path="/recipes" component={Recipes} />
             <Route path="/recipe/:recipeId" component={Recipe} />
