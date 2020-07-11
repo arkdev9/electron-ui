@@ -12,6 +12,7 @@ export default createMuiTheme({
   },
   typography: {
     fontFamily: [
+      'Poppins',
       '-apple-system',
       'Helvetica Neue',
       'Roboto',

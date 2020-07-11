@@ -2,8 +2,9 @@ import React from 'react'
 import { ThemeProvider } from '@material-ui/core'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
-import Footer from './components/Footer'
-import Home from './pages/Home'
+import { Header, Footer } from './components'
+import { Home, Recipes } from './pages'
+
 import theme from './styles/theme'
 
 // const MQTT_ADDRESS = 'ws://localhost:9000'
@@ -12,10 +13,10 @@ function App () {
   return (
     <ThemeProvider theme={theme}>
       <Router>
-        {/* <AppHeader  /> */}
+        <Header />
         <Switch>
           <Route exact path='/' component={Home} />
-          <Route exact path='/recipes' />
+          <Route exact path='/recipes' component={Recipes} />
           <Route path='/recipes/:recipeId' />
           {/* <Route path='/recipes' component={Recipes} />
             <Route path='/recipe/:recipeId' component={Recipe} />
