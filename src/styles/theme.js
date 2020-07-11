@@ -11,6 +11,19 @@ export default createMuiTheme({
     }
   },
   typography: {
-    fontFamily: ['Helvetica Neue', 'Roboto', 'Ubuntu', 'sans-serif']
+    fontFamily: [
+      '-apple-system',
+      'Helvetica Neue',
+      'Roboto',
+      'Ubuntu',
+      'sans-serif'
+    ].join(',')
+  },
+  overrides: {
+    MuiTypography: {
+      root: {
+        userSelect: 'none'
+      }
+    }
   }
 })

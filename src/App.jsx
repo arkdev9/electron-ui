@@ -1,6 +1,6 @@
 import React from 'react'
 import { ThemeProvider } from '@material-ui/core'
-import { Route, Switch, Router } from 'react-router'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 import Footer from './components/Footer'
 import Home from './pages/Home'
@@ -11,8 +11,6 @@ import theme from './styles/theme'
 function App () {
   return (
     <ThemeProvider theme={theme}>
-      {/* <Connector mqttProps="ws://localhost:9001">
-      <Connector mqttProps={MQTT_ADDRESS}> */}
       <Router>
         {/* <AppHeader  /> */}
         <Switch>
@@ -35,10 +33,8 @@ function App () {
             />
             <Route path='/testRecipe' component={TestRecipe} /> */}
         </Switch>
-        {/* <Footer/> */}
         <Footer />
       </Router>
-      {/* </Connector> */}
     </ThemeProvider>
   )
 }
