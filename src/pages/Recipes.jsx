@@ -1,189 +1,113 @@
-// import React from 'react'
-// import { Link } from 'react-router-dom'
-// import recipeDump from '../../data/recipes.json'
-// import {
-//   Grommet,
-//   Box,
-//   Text,
-//   Image,
-//   RoutedButton,
-//   Button,
-//   TextInput
-// } from 'grommet'
-// import styled from 'styled-components'
-// import { Filter, Scan } from 'grommet-icons'
+import React, { useState } from 'react'
+import { Box, Grid, Typography, makeStyles, useTheme } from '@material-ui/core'
 
-// const RecipeList = styled(Box)`
-//   display: flex;
-//   flex-direction: row;
-//   // flex-wrap: wrap;
-//   // justify-content: fl;
-//   align-items: center;
-//   overflow: scroll;
-// `
+const iconGridStyles = makeStyles(theme => ({
+  grid: {
+    width: '100%',
+    height: '100%'
+  },
+  img: {
+    width: '70%',
+    height: '70%',
+    margin: '15%'
+  }
+}))
 
-// const CategoriesList = styled(Box)`
-//   display: -webkit-inline-box;
-//   flex-direction: row;
-//   overflow: scroll;
-// `
+const recipeGridStyles = makeStyles(theme => ({
+  grid: {
+    flexWrap: 'nowrap',
+    overflowX: 'auto',
+    // Promote the list into its own layer on Chrome.
+    // This costs memory but helps keeping high FPS.
+    transform: 'translateZ(0)'
+  },
+  img: {
+    maxWidth: '150px'
+  }
+}))
 
-// const Recipe = styled.div`
-//   display: flex;
-//   width: 120px;
-//   justify-content: center;
-//   align-items: center;
-//   flex-direction: column;
-//   border: 1px;
-//   border-radius: 4px;
-// `
+const iconList = [
+  { src: 'assets/icons/breakfast.svg', caption: 'Breakfast' },
+  { src: 'assets/icons/lunch.svg', caption: 'Lunch' },
+  { src: 'assets/icons/meal.svg', caption: 'Dinner' },
+  { src: 'assets/icons/soup.svg', caption: 'Soup' },
+  { src: 'assets/icons/rice.svg', caption: 'Rice' },
+  { src: 'assets/icons/curry.svg', caption: 'Curry' }
+]
 
-// const filters = [
-//   'For You',
-//   'Ready to Cook',
-//   'Soups',
-//   'Breakfast',
-//   'Dinner',
-//   'Desserts',
-//   'Salad'
-// ]
+export default function Recipes () {
+  const [recipes, setRecipes] = useState({})
+  const iconClasses = iconGridStyles(useTheme())
+  const recipeClasses = recipeGridStyles(useTheme())
 
-// const recipes = []
+  // TODO: We need to implement this in such a way that
+  // the recipes are loaded from an external source
+  function getRecipes () {
+    return new Array(9).fill({
+      name: 'Mutter Paneer',
+      prepTime: '20',
+      ingredients: '12',
+      src: 'assets/recipes/mutter-paneer.png'
+    })
+  }
+  // TODO: Use `useEffect` to get Recipes instead of mapping
+  // from getRecipes during render itself
 
-// class Recipes extends React.Component {
-//   state = {
-//     searchKeyword: null,
-//     currentFilter: 'For You',
-//     allRecipes: [],
-//     filteredRecipes: []
-//   }
-
-//   getAllRecipes = () => {}
-
-//   getRecipesByFilter = filter => {}
-
-//   applyFilter = filter => {
-//     this.setState({ currentFilter: filter })
-//     this.setState({
-//       filteredRecipes: this.getRecipesByFilter(this.state.currentFilter)
-//     })
-//   }
-
-//   componentDidMount () {
-//     this.getAllRecipes()
-//   }
-
-//   render () {
-//     return (
-//       <Box>
-//         <CategoriesList elevation='medium'>
-//           {filters.map(filter => {
-//             return (
-//               <Box
-//                 style={{
-//                   width: 60,
-//                   justifyContent: 'center',
-//                   height: 60,
-//                   borderRadius: 60,
-//                   fontSize: 14,
-//                   textAlign: 'center',
-//                   lineHeight: 1
-//                 }}
-//                 align='center'
-//                 pad='medium'
-//                 margin='small'
-//                 gap='small'
-//                 justify='center'
-//                 onClick={filter => this.applyFilter(filter)}
-//                 background='dark-1'
-//               >
-//                 {filter}
-//               </Box>
-//             )
-//           })}
-//         </CategoriesList>
-//         <RecipeList pad='small'>
-//           {recipeDump.slice(1, 10).map(recipe => {
-//             return (
-//               <Link
-//                 style={{ 'text-decoration': 'none' }}
-//                 key={recipe.id}
-//                 to={{ pathname: '/recipe/' + recipe.id, recipe: recipe }}
-//               >
-//                 <Box
-//                   elevation='small'
-//                   height='320px'
-//                   margin='small'
-//                   round='medium'
-//                   border
-//                   style={{ textDecoration: 'none' }}
-//                   justify='center'
-//                   align='center'
-//                 >
-//                   <Box height='200px' width='small'>
-//                     <Image
-//                       style={{ borderRadius: '5px 5px 0px 0px' }}
-//                       fit='cover'
-//                       round='medium'
-//                       src={recipe.imageUrlsBySize['90']}
-//                     />
-//                   </Box>
-//                   <Box height='120px' pad='xsmall'>
-//                     <Box height='70px'>
-//                       <Text
-//                         color='dark-2'
-//                         style={{ fontSize: 16, fontWeight: 900 }}
-//                       >
-//                         {recipe.recipeName}
-//                       </Text>
-//                     </Box>
-//                     <Box
-//                       height='50px'
-//                       direction='row'
-//                       style={{ justifyContent: 'space-between', fontSize: 12 }}
-//                     >
-//                       <Box direction='column' align='center' justify='center'>
-//                         <Text
-//                           style={{ fontSize: 14, fontWeight: 400 }}
-//                           size='xsmall'
-//                           color='dark-2'
-//                         >
-//                           Prep Time
-//                         </Text>
-//                         <Text
-//                           style={{ fontSize: 12, fontWeight: 400 }}
-//                           size='xsmall'
-//                           color='dark-6'
-//                         >
-//                           10min
-//                         </Text>
-//                       </Box>
-//                       <Box direction='column' align='center' justify='center'>
-//                         <Text
-//                           style={{ fontSize: 14, fontWeight: 400 }}
-//                           size='xsmall'
-//                           color='dark-2'
-//                         >
-//                           Cook Time
-//                         </Text>
-//                         <Text
-//                           style={{ fontSize: 12, fontWeight: 400 }}
-//                           size='xsmall'
-//                           color='dark-6'
-//                         >
-//                           40min
-//                         </Text>
-//                       </Box>
-//                     </Box>
-//                   </Box>
-//                 </Box>
-//               </Link>
-//             )
-//           })}
-//         </RecipeList>
-//       </Box>
-//     )
-//   }
-// }
-
-// export default Recipes
+  return (
+    <Box m={2}>
+      <Box mt={3} mb={5}>
+        <Typography variant='subtitle1'>
+          Let's cook something great today!
+        </Typography>
+        <Grid
+          container
+          direction='row'
+          justify='flex-start'
+          alignItems='center'
+        >
+          {iconList.map(icon => (
+            <Box
+              key={icon.caption}
+              borderRadius='50%'
+              border={1}
+              height={52}
+              width={52}
+              m={1}
+            >
+              <Grid item className={iconClasses.grid} alignContent='center'>
+                <img
+                  src={icon.src}
+                  className={iconClasses.img}
+                  alt={icon.caption}
+                />
+                <Typography variant='caption'>{icon.caption}</Typography>
+              </Grid>
+            </Box>
+          ))}
+        </Grid>
+      </Box>
+      <Box mt={5} mb={3}>
+        <Typography variant='subtitle1'>You may like</Typography>
+        {/* TODO: Get rid of the scrollbar */}
+        <Grid
+          container
+          direction='row'
+          justify='flex-start'
+          alignItems='center'
+          className={recipeClasses.grid}
+        >
+          {getRecipes().map(recipe => (
+            <Grid item key={recipe.name}>
+              <img
+                src={recipe.src}
+                alt={recipe.name}
+                className={recipeClasses.img}
+              />
+              <Typography variant='caption'>{recipe.name}</Typography>
+            </Grid>
+          ))}
+        </Grid>
+      </Box>
+    </Box>
+  )
+}

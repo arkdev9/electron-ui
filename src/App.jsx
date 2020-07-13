@@ -3,9 +3,9 @@ import { ThemeProvider } from '@material-ui/core'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 import { Header, Footer } from './components'
-import { Home, Recipes } from './pages'
 
 import theme from './styles/theme'
+import routes from './config/routes'
 
 // const MQTT_ADDRESS = 'ws://localhost:9000'
 
@@ -15,24 +15,14 @@ function App () {
       <Router>
         <Header />
         <Switch>
-          <Route exact path='/' component={Home} />
-          <Route exact path='/recipes' component={Recipes} />
-          <Route path='/recipes/:recipeId' />
-          {/* <Route path='/recipes' component={Recipes} />
-            <Route path='/recipe/:recipeId' component={Recipe} />
-            <Route path='/weighingScale' component={WeighingScale} />
-            <Route path='/inductionCooktop' component={InductionCooktop} />
-            <Route path='/liquidStation' component={LiquidStation} />
-            <Route path='/spiceRack' component={SpiceRack} />
-            <Route path='/riceCooker' component={RiceCooker} />
-            <Route path='/pantry' component={Pantry} />
-            <Route path='/motorController' component={MotorController} />
-            <Route path='/scheduler' component={Scheduler} />
+          {routes.map(route => (
             <Route
-              path='/preCookPipeline/:recipeId'
-              component={PreCookPipeline}
+              key={route.path}
+              exact={route.exact}
+              path={route.path}
+              component={route.component}
             />
-            <Route path='/testRecipe' component={TestRecipe} /> */}
+          ))}
         </Switch>
         <Footer />
       </Router>

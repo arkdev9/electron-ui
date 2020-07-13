@@ -85,6 +85,7 @@ export default function Home () {
         {cards.map(card => (
           <Grid item key={card.to}>
             <NavLink style={{ textDecoration: 'none' }} to={card.to}>
+              {/* TODO: On hover, background color to translucent orange */}
               <CardWrapper elevation={5}>
                 <CardImage image={card.img} />
                 <CardContent align='center'>
