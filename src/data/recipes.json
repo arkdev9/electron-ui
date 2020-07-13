@@ -1,0 +1,44 @@
+[
+  {
+    "id": "mutter-paneer",
+    "name": "Mutter Paneer",
+    "prepTime": "20",
+    "ingredients": "12",
+    "src": "assets/recipes/mutter-paneer.png"
+  },
+  {
+    "id": "butter-paneer",
+    "name": "Butter Paneer",
+    "prepTime": "30",
+    "ingredients": "8",
+    "src": "assets/recipes/butter-paneer.jpg"
+  },
+  {
+    "id": "kadai-paneer",
+    "name": "Kadai Paneer",
+    "prepTime": "25",
+    "ingredients": "15",
+    "src": "assets/recipes/kadai-paneer.png"
+  },
+  {
+    "id": "mutter-paneer",
+    "name": "Mutter Paneer",
+    "prepTime": "20",
+    "ingredients": "12",
+    "src": "assets/recipes/mutter-paneer.png"
+  },
+  {
+    "id": "butter-paneer",
+    "name": "Butter Paneer",
+    "prepTime": "30",
+    "ingredients": "8",
+    "src": "assets/recipes/butter-paneer.jpg"
+  },
+  {
+    "id": "kadai-paneer",
+    "name": "Kadai Paneer",
+    "prepTime": "25",
+    "ingredients": "15",
+    "src": "assets/recipes/kadai-paneer.png"
+  }
+]

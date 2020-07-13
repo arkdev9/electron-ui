@@ -1,5 +1,16 @@
 import React, { useState } from 'react'
-import { Box, Grid, Typography, makeStyles, useTheme } from '@material-ui/core'
+import {
+  Box,
+  Grid,
+  Typography,
+  makeStyles,
+  useTheme,
+  Card,
+  CardMedia,
+  CardContent
+} from '@material-ui/core'
+
+import recipesData from '../data/recipes.json'
 
 const iconGridStyles = makeStyles(theme => ({
   grid: {
@@ -21,8 +32,15 @@ const recipeGridStyles = makeStyles(theme => ({
     // This costs memory but helps keeping high FPS.
     transform: 'translateZ(0)'
   },
+  card: {
+    marginTop: '1em',
+    width: 100,
+    padding: '1em'
+  },
   img: {
-    maxWidth: '150px'
+    height: 0,
+    paddingTop: '125%',
+    borderRadius: '5%'
   }
 }))
 
@@ -43,12 +61,7 @@ export default function Recipes () {
   // TODO: We need to implement this in such a way that
   // the recipes are loaded from an external source
   function getRecipes () {
-    return new Array(9).fill({
-      name: 'Mutter Paneer',
-      prepTime: '20',
-      ingredients: '12',
-      src: 'assets/recipes/mutter-paneer.png'
-    })
+    return recipesData
   }
   // TODO: Use `useEffect` to get Recipes instead of mapping
   // from getRecipes during render itself
@@ -86,27 +99,40 @@ export default function Recipes () {
           ))}
         </Grid>
       </Box>
-      <Box mt={5} mb={3}>
+      <Box mt={5}>
         <Typography variant='subtitle1'>You may like</Typography>
         {/* TODO: Get rid of the scrollbar */}
-        <Grid
-          container
-          direction='row'
-          justify='flex-start'
-          alignItems='center'
-          className={recipeClasses.grid}
-        >
-          {getRecipes().map(recipe => (
-            <Grid item key={recipe.name}>
-              <img
+        <Box ml={-2} mr={-2}>
+          <Grid
+            container
+            direction='row'
+            justify='flex-start'
+            alignItems='center'
+            className={recipeClasses.grid}
+          >
+            {getRecipes().map(recipe => (
+              <Grid
+                item
+                key={recipe.id}
+                alignContent='center'
+                alignItems='center'
+              >
+                <Card className={recipeClasses.card} elevation={0}>
+                  <CardMedia image={recipe.src} className={recipeClasses.img} />
+                  <CardContent align='center'>
+                    <Typography variant='caption'>{recipe.name}</Typography>
+                  </CardContent>
+                </Card>
+                {/* <img
                 src={recipe.src}
                 alt={recipe.name}
                 className={recipeClasses.img}
               />
-              <Typography variant='caption'>{recipe.name}</Typography>
-            </Grid>
-          ))}
-        </Grid>
+              <Typography variant='caption'>{recipe.name}</Typography> */}
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
       </Box>
     </Box>
   )
