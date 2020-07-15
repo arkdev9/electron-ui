@@ -11,6 +11,7 @@ import {
 } from '@material-ui/core'
 
 import recipesData from '../data/recipes.json'
+import { Link } from 'react-router-dom'
 
 const iconGridStyles = makeStyles(theme => ({
   grid: {
@@ -87,7 +88,7 @@ export default function Recipes () {
               width={52}
               m={1}
             >
-              <Grid item className={iconClasses.grid} alignContent='center'>
+              <Grid item className={iconClasses.grid}>
                 <img
                   src={icon.src}
                   className={iconClasses.img}
@@ -111,24 +112,18 @@ export default function Recipes () {
             className={recipeClasses.grid}
           >
             {getRecipes().map(recipe => (
-              <Grid
-                item
-                key={recipe.id}
-                alignContent='center'
-                alignItems='center'
-              >
-                <Card className={recipeClasses.card} elevation={0}>
-                  <CardMedia image={recipe.src} className={recipeClasses.img} />
-                  <CardContent align='center'>
-                    <Typography variant='caption'>{recipe.name}</Typography>
-                  </CardContent>
-                </Card>
-                {/* <img
-                src={recipe.src}
-                alt={recipe.name}
-                className={recipeClasses.img}
-              />
-              <Typography variant='caption'>{recipe.name}</Typography> */}
+              <Grid item key={recipe.id}>
+                <Link to={`/recipes/${recipe.id}`}>
+                  <Card className={recipeClasses.card} elevation={0}>
+                    <CardMedia
+                      image={recipe.src}
+                      className={recipeClasses.img}
+                    />
+                    <CardContent align='center'>
+                      <Typography variant='caption'>{recipe.name}</Typography>
+                    </CardContent>
+                  </Card>
+                </Link>
               </Grid>
             ))}
           </Grid>

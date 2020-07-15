@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { NavLink } from 'react-router-dom'
 
-import { Grid, IconButton, withStyles } from '@material-ui/core'
+import { Grid, withStyles } from '@material-ui/core'
 import { CalendarToday, Kitchen, Settings, MenuBook } from '@material-ui/icons'
 
 const FootGrid = withStyles({
@@ -9,7 +9,6 @@ const FootGrid = withStyles({
     position: 'fixed',
     left: '0',
     bottom: '0',
-    padding: '1em',
     backgroundColor: 'whitesmoke'
   }
 })(Grid)
@@ -39,8 +38,12 @@ export default function Footer () {
         <NavLink to='/' activeStyle={{ color: 'red' }}>
           <img
             alt='monogram'
-            src='assets/monogramDark.png'
-            style={{ width: '50px', height: '50px' }}
+            src='/assets/monogramDark.png'
+            style={{
+              width: '50px',
+              height: '50px',
+              transform: 'translateY(-50%)'
+            }}
           />
         </NavLink>
       </Grid>

@@ -4,9 +4,10 @@ export default createMuiTheme({
   palette: {
     primary: {
       main: '#FFFFFF'
+      // secondary: '#FF5800'
     },
     secondary: {
-      main: '#DDDDDD',
+      main: '#FF5800',
       secondary: '#FDFDFD'
     }
   },
@@ -26,5 +27,9 @@ export default createMuiTheme({
         userSelect: 'none'
       }
     }
+  },
+  constants: {
+    windowWidth: 480,
+    windowHeight: 640
   }
 })

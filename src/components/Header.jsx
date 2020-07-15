@@ -19,7 +19,13 @@ export default function Header () {
       <Toolbar>
         <Grid container direction='row' justify='center' alignItems='center'>
           <Grid item>
-            <img src='assets/logo.png' alt='logo' style={{ height: '20px' }} />
+            <Link to='/'>
+              <img
+                src='/assets/logo.png'
+                alt='logo'
+                style={{ height: '20px' }}
+              />
+            </Link>
           </Grid>
         </Grid>
       </Toolbar>

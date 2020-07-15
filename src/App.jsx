@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 import { Header, Footer } from './components'
 
-import theme from './styles/theme'
+import theme from './config/theme'
 import routes from './config/routes'
 
 // const MQTT_ADDRESS = 'ws://localhost:9000'

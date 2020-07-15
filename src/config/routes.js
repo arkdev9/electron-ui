@@ -1,4 +1,4 @@
-import { Home, Recipes } from '../pages'
+import { Home, Recipes, Recipe, TasteProfile } from '../pages'
 
 export default [
   {
@@ -10,6 +10,15 @@ export default [
     path: '/recipes',
     exact: true,
     component: Recipes
+  },
+  {
+    path: '/recipes/:recipeId',
+    component: Recipe
+  },
+  // TODO: Figure out where this route is supposed to be
+  {
+    path: '/stage',
+    component: TasteProfile
   }
 ]
 
