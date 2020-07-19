@@ -2,7 +2,7 @@ import React from 'react'
 import { ThemeProvider } from '@material-ui/core'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
-import { Header, Footer } from './components'
+import { Footer } from './components'
 
 import theme from './config/theme'
 import routes from './config/routes'
@@ -13,7 +13,6 @@ function App () {
   return (
     <ThemeProvider theme={theme}>
       <Router>
-        <Header />
         <Switch>
           {routes.map(route => (
             <Route

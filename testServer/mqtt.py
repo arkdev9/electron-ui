@@ -24,6 +24,8 @@ import time
 import random
 import sys
 random.seed(10)
+
+
 def on_connect(mqttc, obj, flags, rc):
     print("rxc: " + str(rc))
 
@@ -55,8 +57,8 @@ mqttc.on_publish = on_publish
 mqttc.on_subscribe = on_subscribe
 # Uncomment to enable debug messages
 # mqttc.on_log = on_log
-# mqttc.connect("localhost")
-mqttc.connect("rpi4-002.local")
+mqttc.connect("localhost")
+# mqttc.connect("rpi4-002.local")
 
 mqttc.subscribe("Riku/Induction/Control", 0)
 mqttc.subscribe("Riku/Updates")
@@ -64,14 +66,14 @@ mqttc.subscribe("Riku/Updates")
 mqttc.loop_start()
 c = 0
 while True:
-    c =  c + 1
+    c = c + 1
     temp = random.randrange(33, 300)
-    weight =  random.randrange(0,500)
+    weight = random.randrange(0, 500)
     time.sleep(1)
     # print(temp)
     # print(weight)
-    payload = {"cooktopTemperature": temp }
-    payload2 ={"weight": weight/100, "targetWeight": 200}
+    payload = {"cooktopTemperature": temp}
+    payload2 = {"weight": weight/100, "targetWeight": 200}
     payload3 = {"station1Level": weight/5,  "station2Level": temp/3}
     print(payload)
     print(sys.getsizeof(payload))
@@ -84,4 +86,4 @@ while True:
     # mqttc.publish("Cooktop/Updates", json.dumps(payload))
     # mqttc.publish("Riku/WeighingScale/Updates", json.dumps(payload2),0)
     # mqttc.publish('LiquidStation/Updates', json.dumps(payload3),0)
-    mqttc.publish('Riku/Firmware/SubParams', json.dumps(payload3),0)
+    mqttc.publish('Riku/Firmware/SubParams', json.dumps(payload3), 0)

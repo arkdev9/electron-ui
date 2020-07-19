@@ -44,11 +44,9 @@ export default function TasteProfile () {
         alignItems='flex-start'
       >
         {profiles.map(profile => (
-          <Grid item key={profile}>
-            <Box width='100%'>
-              <Typography variant='h6'>{profile}</Typography>
-              <ProfileSlider color='secondary' />
-            </Box>
+          <Grid item key={profile} style={{ width: '100%' }}>
+            <Typography variant='h6'>{profile}</Typography>
+            <ProfileSlider color='secondary' />
           </Grid>
         ))}
       </Grid>
