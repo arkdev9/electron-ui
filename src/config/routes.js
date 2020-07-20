@@ -2,6 +2,11 @@ import { Home, Recipes, Recipe, TasteProfile, InductionCooktop } from '../pages'
 
 export default [
   {
+    path: '',
+    exact: true,
+    component: Home
+  },
+  {
     path: '/',
     exact: true,
     component: Home
