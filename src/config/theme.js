@@ -1,6 +1,8 @@
 import { createMuiTheme } from '@material-ui/core'
 
+const spacing = 8
 export default createMuiTheme({
+  spacing: spacing,
   palette: {
     primary: {
       main: '#FFFFFF'
@@ -26,10 +28,18 @@ export default createMuiTheme({
       root: {
         userSelect: 'none'
       }
+    },
+    MuiDivider: {
+      root: {
+        width: '80%',
+        marginLeft: '10%',
+        marginTop: `${spacing * 2}px`
+      }
     }
   },
   constants: {
-    windowWidth: 480,
-    windowHeight: 640
+    windowWidth: 1024,
+    windowHeight: 600,
+    navWidth: 50
   }
 })

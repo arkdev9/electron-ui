@@ -2,11 +2,6 @@ import { Home, Recipes, Recipe, TasteProfile, InductionCooktop } from '../pages'
 
 export default [
   {
-    path: '',
-    exact: true,
-    component: Home
-  },
-  {
     path: '/',
     exact: true,
     component: Home
@@ -22,9 +17,13 @@ export default [
   },
   // TODO: Figure out where this route is supposed to be
   {
-    path: '/stage',
+    path: '/inductionCooktop',
     exact: true,
     component: InductionCooktop
+  },
+  {
+    path: '',
+    component: Home
   }
 ]
 

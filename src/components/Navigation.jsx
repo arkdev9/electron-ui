@@ -4,12 +4,15 @@ import { NavLink } from 'react-router-dom'
 import { Grid, withStyles } from '@material-ui/core'
 import { CalendarToday, Kitchen, Settings, MenuBook } from '@material-ui/icons'
 
+import theme from '../config/theme'
+
 const FootGrid = withStyles({
   root: {
-    position: 'fixed',
-    left: '0',
-    bottom: '0',
-    backgroundColor: 'whitesmoke'
+    height: '100%',
+    // position: 'fixed',
+    // left: '0',
+    // bottom: '0',
+    backgroundColor: '#DDD'
   }
 })(Grid)
 
@@ -19,7 +22,7 @@ export default function Footer () {
   return (
     <FootGrid
       container
-      direction='row'
+      direction='column'
       justify='space-around'
       alignItems='center'
     >
@@ -40,9 +43,8 @@ export default function Footer () {
             alt='monogram'
             src='/assets/monogramDark.png'
             style={{
-              width: '50px',
-              height: '50px',
-              transform: 'translateY(-50%)'
+              width: `${theme.constants.navWidth}px`,
+              height: `${theme.constants.navWidth}px`
             }}
           />
         </NavLink>

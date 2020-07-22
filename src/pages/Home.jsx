@@ -7,8 +7,7 @@ import {
   Grid,
   Typography,
   Divider,
-  withStyles,
-  Box
+  withStyles
 } from '@material-ui/core'
 import { NavLink } from 'react-router-dom'
 
@@ -70,12 +69,10 @@ export default function Home () {
   return (
     <>
       {/* TODO: Replace Ana with user's name from state */}
-      <Box p={2}>
-        <Typography variant='body1' align='center'>
-          Hey Ana, what are you looking for?
-        </Typography>
-      </Box>
-      <Divider style={{ width: '80%', marginLeft: '10%' }} />
+      <Typography variant='body1' align='center'>
+        Hey Ana, what are you looking for?
+      </Typography>
+      <Divider />
       <Grid
         container
         direction='row'
