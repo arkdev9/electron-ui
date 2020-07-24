@@ -11,7 +11,6 @@ import {
   CardContent
 } from '@material-ui/core'
 
-import theme from '../config/theme'
 import recipesData from '../data/recipes.json'
 
 const iconGridStyles = makeStyles({
@@ -27,7 +26,7 @@ const iconGridStyles = makeStyles({
   }
 })
 
-const recipeGridStyles = makeStyles({
+const recipeGridStyles = makeStyles(theme => ({
   grid: {
     flexWrap: 'nowrap',
     overflowX: 'auto',
@@ -38,14 +37,15 @@ const recipeGridStyles = makeStyles({
   card: {
     marginTop: `${theme.spacing(2)}px`,
     width: 200,
-    padding: `${theme.spacing(2)}px`
+    padding: `${theme.spacing(2)}px`,
+    backgroundColor: 'transparent'
   },
   img: {
     height: 0,
     paddingTop: '125%',
     borderRadius: '5%'
   }
-})
+}))
 
 const iconList = [
   { src: 'assets/icons/breakfast.svg', caption: 'Breakfast' },

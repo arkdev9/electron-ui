@@ -8,12 +8,10 @@ import theme from '../config/theme'
 
 const styles = makeStyles(theme => ({
   buttonGrid: {
-    // position: 'absolute',
     width: '100%'
   },
   pulledItem: {
     width: '40%',
-    transform: 'translateY(-150%)',
     marginRight: '5%',
     marginLeft: '5%'
   },
@@ -21,9 +19,7 @@ const styles = makeStyles(theme => ({
     height: `${theme.constants.windowHeight}px`
   },
   img: {
-    height: `${theme.constants.windowHeight}px`,
-    transform: 'translateX(-50%)',
-    marginLeft: '50%'
+    height: `${theme.constants.windowHeight}px`
   }
 }))
 
@@ -53,32 +49,48 @@ export default function Recipe () {
           className={classes.forceFullHeight}
         >
           <Grid item md={5}>
-            <Box height='100%' overflow='hidden'>
-              <img src={recipe.src} alt={recipe.name} className={classes.img} />
+            <Box
+              overflow='hidden'
+              className={classes.img}
+              style={{ backgroundImage: `url(${recipe.src})` }}
+            >
               <Grid
                 container
-                direction='row'
-                justify='center'
+                direction='column'
+                justify='space-between'
                 alignItems='center'
-                className={classes.buttonGrid}
+                className={classes.forceFullHeight}
               >
-                <Grid item className={classes.pulledItem}>
-                  <Button
-                    variant='contained'
-                    color='secondary'
-                    style={{ width: '100%' }}
-                  >
-                    Cook Now
-                  </Button>
+                <Grid item>
+                  <Typography>Gonna be some nav stuff</Typography>
                 </Grid>
-                <Grid item className={classes.pulledItem}>
-                  <Button
-                    variant='contained'
-                    color='secondary'
-                    style={{ width: '100%' }}
+                <Grid item>
+                  <Grid
+                    container
+                    direction='row'
+                    justify='center'
+                    alignItems='flex-end'
+                    className={classes.buttonGrid}
                   >
-                    Schedule Dish
-                  </Button>
+                    <Grid item className={classes.pulledItem}>
+                      <Button
+                        variant='contained'
+                        color='secondary'
+                        style={{ width: '100%' }}
+                      >
+                        Cook Now
+                      </Button>
+                    </Grid>
+                    <Grid item className={classes.pulledItem}>
+                      <Button
+                        variant='contained'
+                        color='secondary'
+                        style={{ width: '100%' }}
+                      >
+                        Schedule Dish
+                      </Button>
+                    </Grid>
+                  </Grid>
                 </Grid>
               </Grid>
             </Box>

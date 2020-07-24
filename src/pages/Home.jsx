@@ -7,31 +7,29 @@ import {
   Grid,
   Typography,
   Divider,
-  withStyles
+  useTheme,
+  makeStyles
 } from '@material-ui/core'
 import { NavLink } from 'react-router-dom'
 
-import theme from '../config/theme'
-
-const CardImage = withStyles({
-  root: {
+const styles = makeStyles(theme => ({
+  wrapper: {
+    margin: 'auto',
+    marginTop: `${theme.spacing(3)}px`,
+    height: 200,
+    width: 150,
+    padding: `${theme.spacing(3)}px`,
+    borderRadius: `${theme.spacing(2)}px`
+  },
+  img: {
     height: 0,
     paddingTop: '100%'
   }
-})(CardMedia)
-
-const CardWrapper = withStyles({
-  root: {
-    margin: 'auto',
-    marginTop: `${theme.spacing(3)}px`,
-    height: 140,
-    width: 100,
-    padding: `${theme.spacing(3)}px`,
-    borderRadius: `${theme.spacing(2)}px`
-  }
-})(Card)
+}))
 
 export default function Home () {
+  const theme = useTheme()
+  const classes = styles(theme)
   const cards = [
     {
       to: '/inductionCooktop',
@@ -77,12 +75,12 @@ export default function Home () {
           <Grid item md={4} key={card.to}>
             <NavLink style={{ textDecoration: 'none' }} to={card.to}>
               {/* TODO: On hover, background color to translucent orange */}
-              <CardWrapper elevation={5}>
-                <CardImage image={card.img} />
+              <Card elevation={5} className={classes.wrapper}>
+                <CardMedia image={card.img} className={classes.img} />
                 <CardContent align='center'>
                   <Typography variant='caption'>{card.text}</Typography>
                 </CardContent>
-              </CardWrapper>
+              </Card>
             </NavLink>
           </Grid>
         ))}

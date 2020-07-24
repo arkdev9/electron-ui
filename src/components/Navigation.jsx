@@ -1,30 +1,32 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 
-import { Grid, withStyles } from '@material-ui/core'
+import { Grid, makeStyles, useTheme } from '@material-ui/core'
 import { CalendarToday, Kitchen, Settings, MenuBook } from '@material-ui/icons'
 
-import theme from '../config/theme'
-
-const FootGrid = withStyles({
-  root: {
-    height: '100%',
+const styles = makeStyles(theme => ({
+  grid: {
+    height: '100%'
     // position: 'fixed',
     // left: '0',
     // bottom: '0',
-    backgroundColor: '#DDD'
+  },
+  img: {
+    width: `${theme.constants.navWidth}px`,
+    height: `${theme.constants.navWidth}px`
   }
-})(Grid)
+}))
 
-export default function Footer () {
+export default function Navigation () {
   // const [activeTab, setActiveTab] = useState(0)
-
+  const classes = styles(useTheme())
   return (
-    <FootGrid
+    <Grid
       container
       direction='column'
       justify='space-around'
       alignItems='center'
+      className={classes.grid}
     >
       {/* TODO: Set activeStyle to work on activeTab */}
       <Grid item>
@@ -42,10 +44,7 @@ export default function Footer () {
           <img
             alt='monogram'
             src='/assets/monogramDark.png'
-            style={{
-              width: `${theme.constants.navWidth}px`,
-              height: `${theme.constants.navWidth}px`
-            }}
+            className={classes.img}
           />
         </NavLink>
       </Grid>
@@ -59,6 +58,6 @@ export default function Footer () {
           <Settings />
         </NavLink>
       </Grid>
-    </FootGrid>
+    </Grid>
   )
 }

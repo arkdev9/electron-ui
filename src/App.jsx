@@ -1,17 +1,19 @@
 import React from 'react'
-import { Box, Grid, ThemeProvider } from '@material-ui/core'
+import { Box, Grid, ThemeProvider, CssBaseline } from '@material-ui/core'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 import Navigation from './components/Navigation'
 
-import theme from './config/theme'
+import getTheme from './config/theme'
 import routes from './config/routes'
 
 // const MQTT_ADDRESS = 'ws://localhost:9000'
 
 function App () {
+  const theme = getTheme({ paletteType: 'dark' })
   return (
     <ThemeProvider theme={theme}>
+      <CssBaseline />
       <Router>
         <Grid
           container

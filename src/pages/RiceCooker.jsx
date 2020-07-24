@@ -1,27 +1,27 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   Card,
   CardHeader,
-  withStyles,
   Button,
-  CardContent
+  CardContent,
+  makeStyles,
+  useTheme
 } from '@material-ui/core'
-import theme from '../config/theme'
-import { useState } from 'react'
 
-const CardWrapper = withStyles({
-  root: {
+const styles = makeStyles(theme => ({
+  wrapper: {
     width: '300px',
     '& .MuiButton-root': {
       marginTop: `${theme.spacing(1)}px`,
       width: '100%'
     }
   }
-})(Card)
+}))
 
 function WhatDo (props) {
+  const classes = styles(useTheme())
   return (
-    <CardWrapper>
+    <Card className={classes.wrapper}>
       <CardHeader title='What do you want to do?' />
       <CardContent>
         <Button
@@ -39,13 +39,14 @@ function WhatDo (props) {
           Warm
         </Button>
       </CardContent>
-    </CardWrapper>
+    </Card>
   )
 }
 
 function CookFlow () {
+  const classes = styles(useTheme())
   return (
-    <CardWrapper>
+    <Card className={classes.wrapper}>
       <CardHeader title='What do you want to cook?' />
       <CardContent>
         <Button color='secondary' variant='outlined'>
@@ -55,12 +56,13 @@ function CookFlow () {
           Something else
         </Button>
       </CardContent>
-    </CardWrapper>
+    </Card>
   )
 }
 function WarmFlow () {
+  const classes = styles(useTheme())
   return (
-    <CardWrapper>
+    <Card className={classes.wrapper}>
       <CardHeader title='Next thing to do' />
       <CardContent>
         <Button color='secondary' variant='outlined'>
@@ -70,7 +72,7 @@ function WarmFlow () {
           Thing
         </Button>
       </CardContent>
-    </CardWrapper>
+    </Card>
   )
 }
 
