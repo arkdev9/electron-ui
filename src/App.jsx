@@ -10,7 +10,7 @@ import routes from './config/routes'
 // const MQTT_ADDRESS = 'ws://localhost:9000'
 
 function App () {
-  const theme = getTheme({ paletteType: 'dark' })
+  const theme = getTheme({ paletteType: 'light' })
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />

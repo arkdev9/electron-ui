@@ -7,8 +7,12 @@ import recipes from '../data/recipes.json'
 import theme from '../config/theme'
 
 const styles = makeStyles(theme => ({
-  buttonGrid: {
+  columnItem: {
     width: '100%'
+  },
+  buttonGrid: {
+    width: '100%',
+    marginBottom: theme.spacing(2)
   },
   pulledItem: {
     width: '40%',
@@ -19,7 +23,9 @@ const styles = makeStyles(theme => ({
     height: `${theme.constants.windowHeight}px`
   },
   img: {
-    height: `${theme.constants.windowHeight}px`
+    height: `${theme.constants.windowHeight}px`,
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center'
   }
 }))
 
@@ -61,15 +67,15 @@ export default function Recipe () {
                 alignItems='center'
                 className={classes.forceFullHeight}
               >
-                <Grid item>
+                <Grid item className={classes.columnItem}>
                   <Typography>Gonna be some nav stuff</Typography>
                 </Grid>
-                <Grid item>
+                <Grid item className={classes.columnItem}>
                   <Grid
                     container
                     direction='row'
                     justify='center'
-                    alignItems='flex-end'
+                    alignItems='center'
                     className={classes.buttonGrid}
                   >
                     <Grid item className={classes.pulledItem}>

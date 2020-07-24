@@ -4,19 +4,12 @@ import {
   CardHeader,
   Button,
   CardContent,
-  makeStyles,
   useTheme
 } from '@material-ui/core'
 
-const styles = makeStyles(theme => ({
-  wrapper: {
-    width: '300px',
-    '& .MuiButton-root': {
-      marginTop: `${theme.spacing(1)}px`,
-      width: '100%'
-    }
-  }
-}))
+import styles from './commonStyles'
+import CookFlow from './CookFlow'
+import CookerContext from './cookerContext'
 
 function WhatDo (props) {
   const classes = styles(useTheme())
@@ -43,22 +36,6 @@ function WhatDo (props) {
   )
 }
 
-function CookFlow () {
-  const classes = styles(useTheme())
-  return (
-    <Card className={classes.wrapper}>
-      <CardHeader title='What do you want to cook?' />
-      <CardContent>
-        <Button color='secondary' variant='outlined'>
-          Rice
-        </Button>
-        <Button color='secondary' variant='outlined'>
-          Something else
-        </Button>
-      </CardContent>
-    </Card>
-  )
-}
 function WarmFlow () {
   const classes = styles(useTheme())
   return (
@@ -91,5 +68,13 @@ export default function RiceCooker () {
     }
   }
 
-  return <>{currentSlide}</>
+  return (
+    <CookerContext.Provider
+      value={{
+        currentSlide: <WhatDo clickHandler={clickHandler} />
+      }}
+    >
+      {currentSlide}
+    </CookerContext.Provider>
+  )
 }
