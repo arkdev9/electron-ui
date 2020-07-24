@@ -1,19 +1,31 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 
-import { Typography, Box, Button, Grid, withStyles } from '@material-ui/core'
+import { Typography, Box, Button, Grid, makeStyles } from '@material-ui/core'
 
 import recipes from '../data/recipes.json'
 import theme from '../config/theme'
 
-const PulledGridItem = withStyles(theme => ({
-  root: {
+const styles = makeStyles(theme => ({
+  buttonGrid: {
+    // position: 'absolute',
+    width: '100%'
+  },
+  pulledItem: {
     width: '40%',
-    transform: 'translateY(-50%)',
-    marginRight: theme.spacing(2),
-    marginLeft: theme.spacing(2)
+    transform: 'translateY(-150%)',
+    marginRight: '5%',
+    marginLeft: '5%'
+  },
+  forceFullHeight: {
+    height: `${theme.constants.windowHeight}px`
+  },
+  img: {
+    height: `${theme.constants.windowHeight}px`,
+    transform: 'translateX(-50%)',
+    marginLeft: '50%'
   }
-}))(Grid)
+}))
 
 function getRecipe (recipeId) {
   for (let i = 0; i < recipes.length; i++) {
@@ -25,55 +37,59 @@ function getRecipe (recipeId) {
 }
 
 export default function Recipe () {
+  const classes = styles(theme)
   const recipeId = useParams().recipeId
   const recipe = getRecipe(recipeId)
 
   if (recipe) {
     return (
-      <>
-        <Box
-          width={theme.constants.windowWidth}
-          height={theme.constants.windowHeight * 0.4}
-          overflow='hidden'
+      // **NOTE: Offset the Grid wrapper margin from Home component
+      <Box m={-2} className={classes.forceFullHeight}>
+        <Grid
+          container
+          direction='row'
+          justify='center'
+          alignItems='center'
+          className={classes.forceFullHeight}
         >
-          <img
-            src={recipe.src}
-            alt={recipe.name}
-            // Centers the image within Box
-            // TODO: Only needed if image is wider than longer
-            style={{
-              width: '100%'
-              // transform: 'translateY(-50%)',
-              // marginTop: '50%'
-            }}
-          />
-        </Box>
-        <Box width='100%'>
-          <Grid container direction='row' justify='center' alignItems='center'>
-            <PulledGridItem item>
-              <Button
-                variant='contained'
-                color='secondary'
-                style={{ width: '100%' }}
+          <Grid item md={5}>
+            <Box height='100%' overflow='hidden'>
+              <img src={recipe.src} alt={recipe.name} className={classes.img} />
+              <Grid
+                container
+                direction='row'
+                justify='center'
+                alignItems='center'
+                className={classes.buttonGrid}
               >
-                Cook Now
-              </Button>
-            </PulledGridItem>
-            <PulledGridItem item>
-              <Button
-                variant='contained'
-                color='secondary'
-                style={{ width: '100%' }}
-              >
-                Schedule Dish
-              </Button>
-            </PulledGridItem>
+                <Grid item className={classes.pulledItem}>
+                  <Button
+                    variant='contained'
+                    color='secondary'
+                    style={{ width: '100%' }}
+                  >
+                    Cook Now
+                  </Button>
+                </Grid>
+                <Grid item className={classes.pulledItem}>
+                  <Button
+                    variant='contained'
+                    color='secondary'
+                    style={{ width: '100%' }}
+                  >
+                    Schedule Dish
+                  </Button>
+                </Grid>
+              </Grid>
+            </Box>
           </Grid>
-        </Box>
-        <Typography variant='h5' align='center'>
-          {recipe.name}
-        </Typography>
-      </>
+          <Grid item md={7}>
+            <Typography variant='h4' align='center'>
+              {recipe.name}
+            </Typography>
+          </Grid>
+        </Grid>
+      </Box>
     )
   } else {
     return <Typography variant='h2'>404</Typography>

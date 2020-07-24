@@ -4,6 +4,7 @@ const spacing = 8
 export default createMuiTheme({
   spacing: spacing,
   palette: {
+    type: 'dark',
     primary: {
       main: '#FFFFFF'
       // secondary: '#FF5800'

@@ -1,4 +1,4 @@
-import { Home, Recipes, Recipe, TasteProfile, InductionCooktop } from '../pages'
+import { Home, Recipes, Recipe, InductionCooktop, RiceCooker } from '../pages'
 
 export default [
   {
@@ -15,11 +15,15 @@ export default [
     path: '/recipes/:recipeId',
     component: Recipe
   },
-  // TODO: Figure out where this route is supposed to be
   {
     path: '/inductionCooktop',
     exact: true,
     component: InductionCooktop
+  },
+  {
+    path: '/riceCooker',
+    exact: true,
+    component: RiceCooker
   },
   {
     path: '',

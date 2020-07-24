@@ -11,6 +11,8 @@ import {
 } from '@material-ui/core'
 import { NavLink } from 'react-router-dom'
 
+import theme from '../config/theme'
+
 const CardImage = withStyles({
   root: {
     height: 0,
@@ -20,10 +22,12 @@ const CardImage = withStyles({
 
 const CardWrapper = withStyles({
   root: {
-    marginTop: '1em',
+    margin: 'auto',
+    marginTop: `${theme.spacing(3)}px`,
     height: 140,
     width: 100,
-    padding: '1em'
+    padding: `${theme.spacing(3)}px`,
+    borderRadius: `${theme.spacing(2)}px`
   }
 })(Card)
 
@@ -54,11 +58,6 @@ export default function Home () {
       img: 'assets/home/liquidStation.png',
       text: 'Liquid Station'
     },
-    // {
-    //   to: '/motorController',
-    //   img: 'assets/home/settings.png',
-    //   text: 'Motor Controller'
-    // },
     {
       to: '/testRecipe',
       img: 'assets/home/cooking.png',
@@ -73,14 +72,9 @@ export default function Home () {
         Hey Ana, what are you looking for?
       </Typography>
       <Divider />
-      <Grid
-        container
-        direction='row'
-        justify='space-evenly'
-        alignItems='flex-start'
-      >
+      <Grid container direction='row' justify='center' alignItems='center'>
         {cards.map(card => (
-          <Grid item key={card.to}>
+          <Grid item md={4} key={card.to}>
             <NavLink style={{ textDecoration: 'none' }} to={card.to}>
               {/* TODO: On hover, background color to translucent orange */}
               <CardWrapper elevation={5}>

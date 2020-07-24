@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 import {
   Box,
   Grid,
@@ -10,10 +11,10 @@ import {
   CardContent
 } from '@material-ui/core'
 
+import theme from '../config/theme'
 import recipesData from '../data/recipes.json'
-import { Link } from 'react-router-dom'
 
-const iconGridStyles = makeStyles(theme => ({
+const iconGridStyles = makeStyles({
   grid: {
     width: '100%',
     height: '100%',
@@ -24,9 +25,9 @@ const iconGridStyles = makeStyles(theme => ({
     height: '70%',
     margin: '15%'
   }
-}))
+})
 
-const recipeGridStyles = makeStyles(theme => ({
+const recipeGridStyles = makeStyles({
   grid: {
     flexWrap: 'nowrap',
     overflowX: 'auto',
@@ -35,16 +36,16 @@ const recipeGridStyles = makeStyles(theme => ({
     transform: 'translateZ(0)'
   },
   card: {
-    marginTop: '1em',
-    width: 100,
-    padding: '1em'
+    marginTop: `${theme.spacing(2)}px`,
+    width: 200,
+    padding: `${theme.spacing(2)}px`
   },
   img: {
     height: 0,
     paddingTop: '125%',
     borderRadius: '5%'
   }
-}))
+})
 
 const iconList = [
   { src: 'assets/icons/breakfast.svg', caption: 'Breakfast' },
@@ -71,9 +72,11 @@ export default function Recipes () {
   return (
     <Box m={2}>
       <Box mt={3} mb={5}>
-        <Typography variant='subtitle1'>
-          Let's cook something great today!
-        </Typography>
+        <Box mb={2}>
+          <Typography variant='h5'>
+            Let's cook something great today!
+          </Typography>
+        </Box>
         <Grid
           container
           direction='row'
@@ -101,10 +104,10 @@ export default function Recipes () {
           ))}
         </Grid>
       </Box>
-      <Box mt={5}>
-        <Typography variant='subtitle1'>You may like</Typography>
+      <Box>
+        <Typography variant='h5'>You may like</Typography>
         {/* TODO: Get rid of the scrollbar */}
-        <Box ml={-2} mr={-2}>
+        <Box mr={-4} ml={-4} mt={-2}>
           <Grid
             container
             direction='row'
