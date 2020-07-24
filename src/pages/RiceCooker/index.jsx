@@ -9,7 +9,7 @@ import {
 
 import styles from './commonStyles'
 import CookFlow from './CookFlow'
-import CookerContext from './cookerContext'
+import CookerContext from './CookerContext'
 
 function WhatDo (props) {
   const classes = styles(useTheme())
