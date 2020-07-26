@@ -12,7 +12,7 @@ import {
 } from '@material-ui/core'
 import theme from '../config/theme'
 
-const useStyles = makeStyles(theme => ({
+const styles = makeStyles(theme => ({
   root: {
     marginTop: theme.spacing(1),
     height: 120,
@@ -29,7 +29,7 @@ const useStyles = makeStyles(theme => ({
 }))
 
 export default function InductionCooktop () {
-  const classes = useStyles(theme)
+  const classes = styles(theme)
   const cards = [
     {
       img: '/assets/cooktop/baby-bottle.png',
@@ -66,7 +66,47 @@ export default function InductionCooktop () {
         alignItems='flex-start'
       >
         <Grid item md={5}>
-          <Cooktop content='0 °C' />
+          <Grid
+            container
+            direction='column'
+            justify='flex-start'
+            alignItems='center'
+          >
+            <Grid item>
+              <Cooktop content='0 °C' />
+            </Grid>
+            <Grid item>
+              <Grid
+                container
+                direction='row'
+                justify='center'
+                alignItems='center'
+                spacing={5}
+              >
+                <Grid item>
+                  <img
+                    style={{ width: '30px', height: '30px' }}
+                    src='/assets/cooktop/minus.png'
+                    alt='test'
+                  />
+                </Grid>
+                <Grid item>
+                  <img
+                    style={{ width: '50px', height: '50px' }}
+                    src='/assets/cooktop/power.png'
+                    alt='test'
+                  />
+                </Grid>
+                <Grid item>
+                  <img
+                    style={{ width: '30px', height: '30px' }}
+                    src='/assets/cooktop/add.png'
+                    alt='test'
+                  />
+                </Grid>
+              </Grid>
+            </Grid>
+          </Grid>
         </Grid>
         <Grid item md={7}>
           <Box p={2}>

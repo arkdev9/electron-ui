@@ -56,52 +56,17 @@ export default function InductionCooktop (props) {
   }
 
   return (
-    <Grid container direction='column' justify='flex-start' alignItems='center'>
-      <Grid item>
-        <Box className={graphClasses.root} ref={graph}>
-          <Box className={graphClasses.content}>
-            <Typography
-              variant='h5'
-              align='center'
-              style={{ marginTop: '50%', transform: 'translateY(-50%)' }}
-            >
-              {props.content}
-            </Typography>
-          </Box>
-          {dots}
-        </Box>
-      </Grid>
-      <Grid item>
-        <Grid
-          container
-          direction='row'
-          justify='center'
-          alignItems='center'
-          spacing={5}
+    <Box className={graphClasses.root} ref={graph}>
+      <Box className={graphClasses.content}>
+        <Typography
+          variant='h5'
+          align='center'
+          style={{ marginTop: '50%', transform: 'translateY(-50%)' }}
         >
-          <Grid item>
-            <img
-              style={{ width: '30px', height: '30px' }}
-              src='/assets/cooktop/minus.png'
-              alt='test'
-            />
-          </Grid>
-          <Grid item>
-            <img
-              style={{ width: '50px', height: '50px' }}
-              src='/assets/cooktop/power.png'
-              alt='test'
-            />
-          </Grid>
-          <Grid item>
-            <img
-              style={{ width: '30px', height: '30px' }}
-              src='/assets/cooktop/add.png'
-              alt='test'
-            />
-          </Grid>
-        </Grid>
-      </Grid>
-    </Grid>
+          {props.content}
+        </Typography>
+      </Box>
+      {dots}
+    </Box>
   )
 }
