@@ -1,13 +1,6 @@
 import React, { useState, useContext } from 'react'
 
-import {
-  Button,
-  Card,
-  CardHeader,
-  CardContent,
-  useTheme,
-  makeStyles
-} from '@material-ui/core'
+import { Button, Card, useTheme, makeStyles } from '@material-ui/core'
 
 import RicePresets from './RicePresets'
 import NeededMaterials from './NeededMaterials'
@@ -15,6 +8,7 @@ import Confirmation from './Confirmation'
 
 import CookerContext from '../CookerContext'
 import FlowContext from './FlowContext'
+import Schedule from './Schedule'
 
 const styles = makeStyles(theme => ({
   wrapper: {
@@ -32,47 +26,25 @@ export default function CookFlow () {
   const context = useContext(CookerContext)
   const classes = styles(useTheme())
 
-  const [pointer, setPointer] = useState(0)
+  const [pointer, setPointer] = useState(1)
   const [selectedPreset, selectPreset] = useState(null)
 
-  function moveFlow (preset) {
-    if (pointer === 2) {
+  function moveFlow (body) {
+    if (pointer === 3) {
+      if (body === 'start') {
+        // Start the cooking
+      } else if (body === 'schedule') {
+        // Handle schedule flow
+      }
+      setPointer(4)
+    } else if (pointer === 2) {
       // Confirmed, start the timer
       setPointer(3)
     } else if (pointer === 1) {
-      if (!preset) {
-        setPointer(0)
-        selectPreset(null)
-      } else {
-        selectPreset(preset)
-        setPointer(2)
-      }
+      // Supposed to pick a preset
+      selectPreset(body)
+      setPointer(2)
     }
-  }
-
-  // Default slide
-  function Initial () {
-    return (
-      <>
-        <CardHeader title='What do you want to cook?' />
-        <CardContent>
-          <Button
-            color='secondary'
-            variant='outlined'
-            onClick={() => setPointer(1)}
-          >
-            Rice
-          </Button>
-          <Button
-            color='secondary'
-            variant='outlined'
-            onClick={() => setPointer(1)}
-          >
-            Something else
-          </Button>
-        </CardContent>
-      </>
-    )
   }
 
   function Wrapper (inner) {
@@ -85,8 +57,8 @@ export default function CookFlow () {
         <Card className={classes.wrapper}>
           <Button
             onClick={() => {
-              context.setFlow(false)
-              console.log('Something')
+              // Cancel this flow
+              context.setFlow(null)
             }}
             variant='contained'
             color='secondary'
@@ -104,13 +76,13 @@ export default function CookFlow () {
     )
   }
 
-  if (pointer === 0) {
-    return Wrapper(<Initial />)
-  } else if (pointer === 1) {
+  if (pointer === 1) {
     return Wrapper(<RicePresets />)
   } else if (pointer === 2) {
     return Wrapper(<NeededMaterials selectedPreset={selectedPreset} />)
   } else if (pointer === 3) {
     return Wrapper(<Confirmation />)
+  } else if (pointer === 4) {
+    return Wrapper(<Schedule />)
   }
 }

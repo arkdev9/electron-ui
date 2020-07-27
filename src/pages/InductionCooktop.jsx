@@ -32,25 +32,20 @@ export default function InductionCooktop () {
   const classes = styles(theme)
   const cards = [
     {
-      img: '/assets/cooktop/baby-bottle.png',
+      img: '/assets/common/milk.png',
       text: 'Baby Bottle'
     },
-    // TODO: Get a better icon
-    // {
-    //   img: '/assets/cooktop/eggs.png',
-    //   text: 'Eggs'
-    // },
     {
-      img: '/assets/cooktop/hotspring.png',
+      img: '/assets/common/hotspring.png',
       text: 'Soup'
     },
     {
-      img: '/assets/cooktop/meat.png',
+      img: '/assets/common/meat.png',
       text: 'Chicken'
     },
     {
-      img: '/assets/cooktop/spa.png',
-      text: 'Something'
+      img: '/assets/common/rice.png',
+      text: 'Rice'
     }
   ]
   return (

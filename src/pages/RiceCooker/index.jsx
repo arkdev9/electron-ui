@@ -8,13 +8,13 @@ import {
   Typography,
   Box,
   Divider,
-  makeStyles
+  makeStyles,
+  useTheme
 } from '@material-ui/core'
 
 import presetFlows from './PresetFlows'
 import flows from './Flows'
 
-import theme from '../../config/theme'
 import CookerContext from './CookerContext'
 
 const useStyles = makeStyles(theme => ({
@@ -34,6 +34,7 @@ const useStyles = makeStyles(theme => ({
 }))
 
 export default function RiceCooker () {
+  const theme = useTheme()
   const classes = useStyles(theme)
   const [flowSelected, setFlowSelected] = useState(false)
   const [selectedPreset, selectPreset] = useState('milk')
@@ -92,7 +93,7 @@ export default function RiceCooker () {
                 alignItems='center'
                 spacing={3}
               >
-                {presetFlows[selectedPreset].component}
+                {presetFlows[selectedPreset].buttonGrid}
               </Grid>
             </Grid>
           </Grid>
@@ -112,19 +113,25 @@ export default function RiceCooker () {
                 alignItems='flex-start'
                 spacing={2}
               >
-                {Object.keys(presetFlows).map(card => (
-                  <Grid item key={presetFlows[card].text}>
+                {Object.keys(presetFlows).map(flowKey => (
+                  <Grid item key={presetFlows[flowKey].text}>
                     <Card
                       className={classes.root}
-                      onClick={() => selectPreset(card)}
+                      onClick={() => selectPreset(flowKey)}
+                      style={
+                        // TODO: Doesn't work
+                        selectedFlow === flowKey
+                          ? { backgroundColor: theme.palette.secondary.main }
+                          : null
+                      }
                     >
                       <CardMedia
                         className={classes.media}
-                        image={presetFlows[card].img}
+                        image={presetFlows[flowKey].img}
                       />
                       <CardContent className={classes.content} align='center'>
                         <Typography variant='caption'>
-                          {presetFlows[card].text}
+                          {presetFlows[flowKey].text}
                         </Typography>
                       </CardContent>
                     </Card>

@@ -38,7 +38,7 @@ export default function Home () {
     },
     {
       to: '/riceCooker',
-      img: 'assets/home/riceCooker.png',
+      img: 'assets/common/rice.png',
       text: 'Rice Cooker'
     },
     {

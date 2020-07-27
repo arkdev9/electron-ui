@@ -72,7 +72,7 @@ function MeatPreset () {
   )
 }
 
-function SomethingPreset () {
+function RicePreset () {
   const context = useContext(CookerContext)
   return (
     <Grid item>
@@ -81,10 +81,10 @@ function SomethingPreset () {
         color='secondary'
         disabled={context.flowSelected}
         onClick={() => {
-          context.setFlow('warm')
+          context.setFlow('cook')
         }}
       >
-        Warm (Example)
+        Cook
       </Button>
     </Grid>
   )
@@ -92,23 +92,23 @@ function SomethingPreset () {
 
 export default {
   milk: {
-    img: '/assets/cooktop/baby-bottle.png',
+    img: '/assets/common/milk.png',
     text: 'Milk',
-    component: <MilkPreset />
+    buttonGrid: <MilkPreset />
   },
   soup: {
-    img: '/assets/cooktop/hotspring.png',
+    img: '/assets/common/hotspring.png',
     text: 'Soup',
-    component: <SoupPreset />
+    buttonGrid: <SoupPreset />
   },
   meat: {
-    img: '/assets/cooktop/meat.png',
+    img: '/assets/common/meat.png',
     text: 'Meat',
-    component: <MeatPreset />
+    buttonGrid: <MeatPreset />
   },
   something: {
-    img: '/assets/cooktop/spa.png',
-    text: 'Something',
-    component: <SomethingPreset />
+    img: '/assets/common/rice.png',
+    text: 'Rice',
+    buttonGrid: <RicePreset />
   }
 }
