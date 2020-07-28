@@ -1,6 +1,8 @@
 import { createMuiTheme } from '@material-ui/core'
 
-const spacing = 8
+export const spacing = 8
+export const windowWidth = 1024
+export const windowHeight = 600
 export default function getTheme (themeRoot) {
   return createMuiTheme({
     spacing: spacing,
@@ -43,8 +45,8 @@ export default function getTheme (themeRoot) {
       }
     },
     constants: {
-      windowWidth: 1024,
-      windowHeight: 600,
+      windowWidth,
+      windowHeight,
       navWidth: 50
     }
   })

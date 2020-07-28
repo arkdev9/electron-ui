@@ -54,7 +54,7 @@ export default function Navigation () {
         </NavLink>
       </Grid>
       <Grid item>
-        <NavLink to='/settings' activeStyle={{ color: 'red' }}>
+        <NavLink to='/dev' activeStyle={{ color: 'red' }}>
           <Settings />
         </NavLink>
       </Grid>

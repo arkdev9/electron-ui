@@ -1,6 +1,13 @@
-import { Home, Recipes, Recipe, InductionCooktop, RiceCooker } from '../pages'
+import {
+  Home,
+  Recipes,
+  Recipe,
+  InductionCooktop,
+  RiceCooker,
+  Dashboard
+} from '../pages'
 
-export default [
+const paths = [
   {
     path: '/',
     exact: true,
@@ -26,10 +33,18 @@ export default [
     component: RiceCooker
   },
   {
-    path: '',
-    component: Home
+    path: '/dev',
+    component: Dashboard
   }
 ]
+
+// **NOTE: This path should always be at the end
+paths.push({
+  path: '',
+  component: Home
+})
+
+export default paths
 
 /* <Route path='/recipes' component={Recipes} />
   <Route path='/recipe/:recipeId' component={Recipe} />

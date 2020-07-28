@@ -50,14 +50,16 @@ def on_log(mqttc, obj, level, string):
 # mqttc = mqtt.Client("client-id")
 # but note that the client id must be unique on the broker. Leaving the client
 # id parameter empty will generate a random id for you.
-mqttc = mqtt.Client()
+mqttc = mqtt.Client(transport='websockets')
 mqttc.on_message = on_message
 mqttc.on_connect = on_connect
 mqttc.on_publish = on_publish
 mqttc.on_subscribe = on_subscribe
 # Uncomment to enable debug messages
 # mqttc.on_log = on_log
-mqttc.connect("localhost")
+# mqttc.tls_set("/home/admin/certs/server_iot.crt", tls_version=ssl.PROTOCOL_TLSv1_2)
+# mqttc.tls_insecure_set(True)
+mqttc.connect("localhost", port=8083)
 # mqttc.connect("rpi4-002.local")
 
 mqttc.subscribe("Riku/Induction/Control", 0)
@@ -82,8 +84,7 @@ while True:
     print(payload3)
     print(sys.getsizeof(payload3))
     # print(c)
-    # mqttc.publish("Cooktop/Updates", json.dumps(payload))
-    # mqttc.publish("Cooktop/Updates", json.dumps(payload))
-    # mqttc.publish("Riku/WeighingScale/Updates", json.dumps(payload2),0)
-    # mqttc.publish('LiquidStation/Updates', json.dumps(payload3),0)
-    mqttc.publish('Riku/Firmware/SubParams', json.dumps(payload3), 0)
+    mqttc.publish("Cooktop/Updates", json.dumps(payload))
+    mqttc.publish("Riku/WeighingScale/Updates", json.dumps(payload2), 0)
+    mqttc.publish('LiquidStation/Updates', json.dumps(payload3), 0)
+    time.sleep(2)
