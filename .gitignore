@@ -3,17 +3,17 @@
 # dependencies
 /node_modules
 /.pnp
-.pnp.js
+/.pnp.js
+/testServer/venv
 
 # testing
 /coverage
 
 # production
 /build
-/dist
-/electron/build
 
 # misc
+testServer
 .DS_Store
 .env.local
 .env.development.local
