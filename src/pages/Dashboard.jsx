@@ -17,10 +17,10 @@ class MotorController extends Component {
     }
   }
 
-  publishMessage (message, topic) {
+  publishMessage (message, topic = 'Riku/Firmware/SubParams') {
     // e.preventDefault();
     // MQTT client is passed on
-    console.log((topic = 'Riku/Firmware/SubParams'), message)
+    console.log(`Publishing to ${topic}: ${message}`)
     const { mqtt } = this.props
     mqtt.publish(topic, JSON.stringify(message))
   }

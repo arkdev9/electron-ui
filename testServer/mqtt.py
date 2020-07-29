@@ -64,6 +64,8 @@ mqttc.connect("localhost", port=8083)
 
 mqttc.subscribe("Riku/Induction/Control", 0)
 mqttc.subscribe("Riku/Updates")
+mqttc.subscribe("Riku/Firmware/SubParams")
+mqttc.subscribe("Riku/Firmware/PubAll")
 
 mqttc.loop_start()
 c = 0
@@ -87,4 +89,6 @@ while True:
     mqttc.publish("Cooktop/Updates", json.dumps(payload))
     mqttc.publish("Riku/WeighingScale/Updates", json.dumps(payload2), 0)
     mqttc.publish('LiquidStation/Updates', json.dumps(payload3), 0)
+    mqttc.publish('Riku/Firmware/PubAll', json.dumps(payload))
+    mqttc.publish('Riku/Firmware/SubParams', json.dumps(payload2))
     time.sleep(2)
