@@ -35,14 +35,15 @@ const paths = [
   {
     path: '/dev',
     component: Dashboard
+  },
+  {
+    path: '',
+    component: Home
   }
 ]
 
 // **NOTE: This path should always be at the end
-paths.push({
-  path: '',
-  component: Home
-})
+// paths.push()
 
 export default paths
 

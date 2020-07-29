@@ -26,14 +26,15 @@ function App () {
               height: theme.constants.windowHeight
             }}
           >
-            <Grid item style={{ height: '100%' }}>
+            <Grid item style={{ height: '100%' }} md={1}>
               <Navigation />
             </Grid>
             <Grid
               item
+              md={11}
               style={{
-                height: '100%',
-                width: `calc(100% - ${theme.constants.navWidth}px)`
+                height: '100%'
+                // **NOTE: Setting width manually breaks in production
               }}
             >
               <Box
