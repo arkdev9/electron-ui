@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import { subscribe } from 'mqtt-react'
-import * as PubSubBridge from '../config/mqttPubSub'
 import { Box, Paper, Typography, Button } from '@material-ui/core'
+
+import * as PubSubBridge from '../config/mqttPubSub'
+import topics from '../config/topicMap'
 import { windowHeight } from '../config/theme'
 
 class MotorController extends Component {
@@ -26,27 +28,29 @@ class MotorController extends Component {
   }
 
   homeSpiceRack () {
-    this.publishMessage(PubSubBridge.homeSpiceRack())
+    this.publishMessage(PubSubBridge.homeSpiceRack(), topics.control.spice)
   }
 
   publishDispenseSpice () {
     this.publishMessage(
-      PubSubBridge.dispenseSpice(this.state.currentSpicePosition, 20, 1)
+      PubSubBridge.dispenseSpice(this.state.currentSpicePosition, 20, 1),
+      topics.control.spice
     )
   }
 
-  pubishMove2PositionSpiceRack (position) {
+  publishMove2PositionSpiceRack (position) {
     const message = PubSubBridge.moveSpiceRack2Position(position)
-    this.publishMessage(message)
+    this.publishMessage(message, topics.control.spice)
   }
 
   publishMove2PositionIngredientRack (position) {
     const message = PubSubBridge.moveIngredientRack2Position(position)
-    this.publishMessage(message)
+    this.publishMessage(message, topics.control.ingredient)
   }
 
   // publishDispenseSpice (weight) {}
 
+  // TODO: What channel to publish to?
   publishToggleStirrer () {
     this.setState({ stirrerState: !this.state.stirrerState })
     if (this.state.stirrerState) {
@@ -59,11 +63,11 @@ class MotorController extends Component {
   }
 
   publishDispenseLiquid (station, volume) {
-    if (station === 'Oil') {
-      this.publishMessage(PubSubBridge.dispenseOil(volume))
-    } else {
-      this.publishMessage(PubSubBridge.dispenseWater(volume))
-    }
+    const message =
+      station === 'Oil'
+        ? PubSubBridge.dispenseOil(volume)
+        : PubSubBridge.dispenseWater(volume)
+    this.publishMessage(message, topics.control.liquid)
   }
 
   componentDidMount () {
@@ -73,13 +77,6 @@ class MotorController extends Component {
       console.log(this.props.data)
       const payload = this.props.data.pop()
       console.log(payload)
-      // this.setState({scaleStatus: true, currentWeight: parseInt(payload.weight), targetWeight: parseInt(payload.weight)});
-      // if(payload){
-      //     this.setState({
-      //         openWorkingModal: true,
-      //         payload: payload
-      //     });
-      // }
     })
   }
 
@@ -146,7 +143,7 @@ class MotorController extends Component {
                     key={position}
                     variant='contained'
                     style={{ margin: 5, padding: 5, width: 30 }}
-                    onClick={() => this.pubishMove2PositionSpiceRack(position)}
+                    onClick={() => this.publishMove2PositionSpiceRack(position)}
                   >
                     {position}
                   </Button>
