@@ -7,17 +7,20 @@ import Navigation from './components/Navigation'
 
 import getTheme from './config/theme'
 import routes from './config/routes'
+import MasterControl from './overlays/MasterControl'
 
 // const MQTT_ADDRESS = 'ws://localhost:9000'
 
 const appDefaults = {
   loggedIn: true,
   username: 'Ana',
-  theme: 'light'
+  theme: 'light',
+  masterControl: true
 }
 export const AppContext = createContext({
   appState: appDefaults,
-  toggleTheme: () => {}
+  toggleTheme: () => {},
+  toggleMasterControl: () => {}
 })
 
 function App () {
@@ -35,14 +38,23 @@ function App () {
       theme: appState.theme === 'dark' ? 'light' : 'dark'
     })
   }
+  const toggleMasterControl = () => {
+    setAppState({
+      ...appState,
+      masterControl: !appState.masterControl
+    })
+  }
 
   return (
     <Connector mqttProps='ws://localhost:8083'>
       {/* Passing default values to provider hook */}
-      <AppContext.Provider value={{ appState, toggleTheme }}>
+      <AppContext.Provider
+        value={{ appState, toggleTheme, toggleMasterControl }}
+      >
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <Router>
+            <MasterControl />
             <Grid
               container
               direction='row'

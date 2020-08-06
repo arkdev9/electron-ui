@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { NavLink } from 'react-router-dom'
 
 import { Grid, makeStyles, useTheme } from '@material-ui/core'
 import { CalendarToday, Kitchen, Settings, MenuBook } from '@material-ui/icons'
+import { AppContext } from '../App'
 
 const styles = makeStyles(theme => ({
   grid: {
@@ -18,7 +19,7 @@ const styles = makeStyles(theme => ({
 }))
 
 export default function Navigation () {
-  // const [activeTab, setActiveTab] = useState(0)
+  const appContext = useContext(AppContext)
   const classes = styles(useTheme())
   return (
     <Grid
@@ -39,13 +40,12 @@ export default function Navigation () {
         </NavLink>
       </Grid>
       <Grid item>
-        <NavLink to='/' activeStyle={{ color: 'red' }}>
-          <img
-            alt='monogram'
-            src='/assets/monogramDark.png'
-            className={classes.img}
-          />
-        </NavLink>
+        <img
+          alt='monogram'
+          src='/assets/monogramDark.png'
+          className={classes.img}
+          onClick={() => appContext.toggleMasterControl()}
+        />
       </Grid>
       <Grid item>
         <NavLink to='/pantry' activeStyle={{ color: 'red' }}>
