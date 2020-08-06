@@ -4,7 +4,8 @@ import {
   Recipe,
   InductionCooktop,
   RiceCooker,
-  Dashboard
+  Dashboard,
+  WeighScale
 } from '../pages'
 
 const paths = [
@@ -26,6 +27,11 @@ const paths = [
     path: '/inductionCooktop',
     exact: true,
     component: InductionCooktop
+  },
+  {
+    path: '/weighScale',
+    exact: true,
+    component: WeighScale
   },
   {
     path: '/riceCooker',

@@ -28,7 +28,6 @@ export default function Navigation () {
       alignItems='center'
       className={classes.grid}
     >
-      {/* TODO: Set activeStyle to work on activeTab */}
       <Grid item>
         <NavLink to='/recipes' activeStyle={{ color: 'red' }}>
           <MenuBook />

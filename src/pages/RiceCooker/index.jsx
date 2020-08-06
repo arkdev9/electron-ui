@@ -1,70 +1,12 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { Grid, Typography, Divider, Button, Box } from '@material-ui/core'
+
+import CookFlow from './CookFlow'
 import Cooktop from '../../components/Cooktop'
-import {
-  Card,
-  CardContent,
-  CardMedia,
-  Grid,
-  Typography,
-  Box,
-  Divider,
-  makeStyles,
-  useTheme
-} from '@material-ui/core'
-
-import presetFlows from './PresetFlows'
-import flows from './Flows'
-
-import CookerContext from './CookerContext'
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    marginTop: theme.spacing(1),
-    height: 120,
-    width: 80,
-    padding: theme.spacing(1)
-  },
-  content: {
-    padding: `${theme.spacing(1)}px 0px ${theme.spacing(1)}px 0px !important`
-  },
-  media: {
-    height: 0,
-    paddingTop: '100%'
-  }
-}))
 
 export default function RiceCooker () {
-  const theme = useTheme()
-  const classes = useStyles(theme)
-  const [flowSelected, setFlowSelected] = useState(false)
-  const [selectedPreset, selectPreset] = useState('milk')
-  const [selectedFlow, selectFlow] = useState(null)
-
-  function setFlow (flow) {
-    console.log(`Setting flow with: ${flow}`)
-    if (!flow) {
-      // Flow will be false when an already set flow
-      // is cancelled before completion
-      setFlowSelected(false)
-      selectFlow(null)
-      // Selecting milk as default preset (first in the list)
-      selectPreset('milk')
-    } else {
-      // Some flow was defined, set it follow it
-      setFlowSelected(true)
-      selectFlow(flow)
-    }
-  }
-
   return (
-    <CookerContext.Provider
-      value={{
-        selectedPreset,
-        selectedFlow,
-        flowSelected,
-        setFlow
-      }}
-    >
+    <>
       <Typography align='center' variant='h3' color='secondary'>
         Rice Cooker
       </Typography>
@@ -83,65 +25,29 @@ export default function RiceCooker () {
             alignItems='center'
           >
             <Grid item>
-              <Cooktop content='0 °C' />
+              <Box
+                border={1}
+                borderColor='secondary'
+                p={5}
+                borderRadius='50%'
+                mt={5}
+              >
+                <img src='/assets/icons/cooker.svg' alt='cooker' />
+              </Box>
             </Grid>
             <Grid item>
-              <Grid
-                container
-                direction='row'
-                justify='center'
-                alignItems='center'
-                spacing={3}
-              >
-                {presetFlows[selectedPreset].buttonGrid}
-              </Grid>
+              <Box mt={5}>
+                <Typography align='center'>
+                  What do you want to cook?
+                </Typography>
+              </Box>
             </Grid>
           </Grid>
         </Grid>
         <Grid item md={7}>
-          {flowSelected ? (
-            flows[selectedFlow].component
-          ) : (
-            <Box p={2}>
-              <Typography variant='h4' align='center'>
-                Presets
-              </Typography>
-              <Grid
-                container
-                direction='row'
-                justify='space-evenly'
-                alignItems='flex-start'
-                spacing={2}
-              >
-                {Object.keys(presetFlows).map(flowKey => (
-                  <Grid item key={presetFlows[flowKey].text}>
-                    <Card
-                      className={classes.root}
-                      onClick={() => selectPreset(flowKey)}
-                      style={
-                        // TODO: Doesn't work
-                        selectedFlow === flowKey
-                          ? { backgroundColor: theme.palette.secondary.main }
-                          : null
-                      }
-                    >
-                      <CardMedia
-                        className={classes.media}
-                        image={presetFlows[flowKey].img}
-                      />
-                      <CardContent className={classes.content} align='center'>
-                        <Typography variant='caption'>
-                          {presetFlows[flowKey].text}
-                        </Typography>
-                      </CardContent>
-                    </Card>
-                  </Grid>
-                ))}
-              </Grid>
-            </Box>
-          )}
+          <CookFlow />
         </Grid>
       </Grid>
-    </CookerContext.Provider>
+    </>
   )
 }

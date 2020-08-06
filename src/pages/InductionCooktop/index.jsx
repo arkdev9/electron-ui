@@ -1,5 +1,5 @@
 import React from 'react'
-import Cooktop from '../components/Cooktop'
+import Cooktop from '../../components/Cooktop'
 import {
   Card,
   CardContent,
@@ -10,7 +10,7 @@ import {
   Divider,
   makeStyles
 } from '@material-ui/core'
-import theme from '../config/theme'
+import theme from '../../config/theme'
 
 const styles = makeStyles(theme => ({
   root: {

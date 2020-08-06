@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 
 import {
   Card,
@@ -8,9 +8,11 @@ import {
   Typography,
   Divider,
   useTheme,
-  makeStyles
+  makeStyles,
+  Button
 } from '@material-ui/core'
 import { NavLink } from 'react-router-dom'
+import { AppContext } from '../App'
 
 const styles = makeStyles(theme => ({
   wrapper: {
@@ -42,9 +44,9 @@ export default function Home () {
       text: 'Rice Cooker'
     },
     {
-      to: '/weighingScale',
+      to: '/weighScale',
       img: 'assets/home/weighingScale.png',
-      text: 'Weighing Scale'
+      text: 'Weigh Scale'
     },
     {
       to: '/spiceRack',
@@ -67,7 +69,7 @@ export default function Home () {
     <>
       {/* TODO: Replace Ana with user's name from state */}
       <Typography variant='body1' align='center'>
-        Hey Ana, what are you looking for?
+        Ana! What do you want?
       </Typography>
       <Divider />
       <Grid container direction='row' justify='center' alignItems='center'>

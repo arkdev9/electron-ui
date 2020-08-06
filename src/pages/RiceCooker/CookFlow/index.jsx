@@ -6,7 +6,6 @@ import RicePresets from './RicePresets'
 import NeededMaterials from './NeededMaterials'
 import Confirmation from './Confirmation'
 
-import CookerContext from '../CookerContext'
 import FlowContext from './FlowContext'
 import Schedule from './Schedule'
 
@@ -23,7 +22,6 @@ const styles = makeStyles(theme => ({
 }))
 
 export default function CookFlow () {
-  const context = useContext(CookerContext)
   const classes = styles(useTheme())
 
   const [pointer, setPointer] = useState(1)
@@ -58,7 +56,7 @@ export default function CookFlow () {
           <Button
             onClick={() => {
               // Cancel this flow
-              context.setFlow(null)
+              setPointer(1)
             }}
             variant='contained'
             color='secondary'

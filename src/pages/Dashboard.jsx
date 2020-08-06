@@ -22,13 +22,20 @@ class MotorController extends Component {
   publishMessage (message, topic = 'Riku/Firmware/SubParams') {
     // e.preventDefault();
     // MQTT client is passed on
-    console.log(`Publishing to ${topic}: ${message}`)
+    console.log(`Publishing to ${topic}: ${JSON.stringify(message)}`)
     const { mqtt } = this.props
     mqtt.publish(topic, JSON.stringify(message))
   }
 
   homeSpiceRack () {
     this.publishMessage(PubSubBridge.homeSpiceRack(), topics.control.spice)
+  }
+
+  homeIngredientRack () {
+    this.publishMessage(
+      PubSubBridge.homeIngredientRack(),
+      topics.control.ingredient
+    )
   }
 
   publishDispenseSpice () {
@@ -80,7 +87,7 @@ class MotorController extends Component {
     })
   }
 
-  closeModal () {
+  handleModal () {
     this.setState({ ...this.state, openWorkingModal: false })
   }
 
@@ -92,8 +99,8 @@ class MotorController extends Component {
           <Paper
             position='center'
             modal
-            onClickOutside={this.closeModal}
-            onEsc={this.closeModal}
+            onClickOutside={this.handleModal}
+            onEsc={this.handleModal}
           >
             <Box pad='medium' gap='small' width='medium'>
               <Typography variant='h3' margin='none'>
@@ -166,7 +173,7 @@ class MotorController extends Component {
             >
               <Button
                 variant='outlined'
-                onClick={() => this.publishMessage('', {})}
+                onClick={() => this.homeIngredientRack()}
               >
                 Home
               </Button>

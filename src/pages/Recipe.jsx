@@ -23,9 +23,8 @@ const styles = makeStyles(theme => ({
     height: `${theme.constants.windowHeight}px`
   },
   img: {
-    height: `${theme.constants.windowHeight}px`,
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'center'
+    width: '100%',
+    borderRadius: '5%'
   }
 }))
 
@@ -55,51 +54,52 @@ export default function Recipe () {
           className={classes.forceFullHeight}
         >
           <Grid item md={5}>
-            <Box
-              overflow='hidden'
-              className={classes.img}
-              style={{ backgroundImage: `url(${recipe.src})` }}
+            <Grid
+              container
+              direction='column'
+              justify='space-around'
+              alignItems='center'
+              className={classes.forceFullHeight}
             >
-              <Grid
-                container
-                direction='column'
-                justify='space-between'
-                alignItems='center'
-                className={classes.forceFullHeight}
-              >
-                <Grid item className={classes.columnItem}>
-                  <Typography>Gonna be some nav stuff</Typography>
-                </Grid>
-                <Grid item className={classes.columnItem}>
-                  <Grid
-                    container
-                    direction='row'
-                    justify='center'
-                    alignItems='center'
-                    className={classes.buttonGrid}
-                  >
-                    <Grid item className={classes.pulledItem}>
-                      <Button
-                        variant='contained'
-                        color='secondary'
-                        style={{ width: '100%' }}
-                      >
-                        Cook Now
-                      </Button>
-                    </Grid>
-                    <Grid item className={classes.pulledItem}>
-                      <Button
-                        variant='contained'
-                        color='secondary'
-                        style={{ width: '100%' }}
-                      >
-                        Schedule Dish
-                      </Button>
-                    </Grid>
+              <Grid item className={classes.columnItem}>
+                <Typography>Gonna be some nav stuff</Typography>
+              </Grid>
+              <Grid item className={classes.columnItem}>
+                <img
+                  src={recipe.src}
+                  alt={recipe.name}
+                  className={classes.img}
+                />
+              </Grid>
+              <Grid item className={classes.columnItem}>
+                <Grid
+                  container
+                  direction='row'
+                  justify='center'
+                  alignItems='center'
+                  className={classes.buttonGrid}
+                >
+                  <Grid item className={classes.pulledItem}>
+                    <Button
+                      variant='contained'
+                      color='secondary'
+                      style={{ width: '100%' }}
+                    >
+                      Cook Now
+                    </Button>
+                  </Grid>
+                  <Grid item className={classes.pulledItem}>
+                    <Button
+                      variant='contained'
+                      color='secondary'
+                      style={{ width: '100%' }}
+                    >
+                      Schedule Dish
+                    </Button>
                   </Grid>
                 </Grid>
               </Grid>
-            </Box>
+            </Grid>
           </Grid>
           <Grid item md={7}>
             <Typography variant='h4' align='center'>
