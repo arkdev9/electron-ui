@@ -1,9 +1,7 @@
 import React, { createContext, useState } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { Connector } from 'mqtt-react'
-import { Box, Grid, ThemeProvider, CssBaseline } from '@material-ui/core'
-
-import Navigation from './components/Navigation'
+import { Box, ThemeProvider, CssBaseline } from '@material-ui/core'
 
 import getTheme from './config/theme'
 import routes from './config/routes'
@@ -15,7 +13,7 @@ const appDefaults = {
   loggedIn: true,
   username: 'Ana',
   theme: 'light',
-  masterControl: true
+  masterControl: false
 }
 export const AppContext = createContext({
   appState: appDefaults,
@@ -55,44 +53,18 @@ function App () {
           <CssBaseline />
           <Router>
             <MasterControl />
-            <Grid
-              container
-              direction='row'
-              justify='flex-start'
-              alignItems='flex-start'
-              style={{
-                height: theme.constants.windowHeight
-              }}
-            >
-              <Grid item style={{ height: '100%' }} md={1}>
-                <Navigation />
-              </Grid>
-              <Grid
-                item
-                md={11}
-                style={{
-                  height: '100%'
-                  // **NOTE: Setting width manually breaks in production
-                }}
-              >
-                <Box
-                  p={2}
-                  height={theme.constants.windowHeight}
-                  overflow='hidden'
-                >
-                  <Switch>
-                    {routes.map(route => (
-                      <Route
-                        key={route.path}
-                        exact={route.exact}
-                        path={route.path}
-                        component={route.component}
-                      />
-                    ))}
-                  </Switch>
-                </Box>
-              </Grid>
-            </Grid>
+            <Box height={theme.constants.windowHeight} overflow='hidden'>
+              <Switch>
+                {routes.map(route => (
+                  <Route
+                    key={route.path}
+                    exact={route.exact}
+                    path={route.path}
+                    component={route.component}
+                  />
+                ))}
+              </Switch>
+            </Box>
           </Router>
         </ThemeProvider>
       </AppContext.Provider>

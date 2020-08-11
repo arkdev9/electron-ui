@@ -12,7 +12,7 @@ export default function getTheme (themeRoot) {
     palette: {
       type: themeRoot.paletteType,
       background: {
-        default: themeRoot.paletteType === 'light' ? '#fff' : '#111111'
+        default: themeRoot.paletteType === 'light' ? '#fff' : '#313131'
       },
       primary: {
         main: '#FFFFFF'
@@ -43,11 +43,11 @@ export default function getTheme (themeRoot) {
         root: {
           width: '80%',
           marginLeft: '10%',
-          marginTop: `${spacing * 2}px`
+          marginTop: `${spacing * 1}px`,
+          marginBottom: `${spacing * 1}px`
         }
       },
       MuiPaper: {
-        root: {},
         rounded: {
           borderRadius: '0px'
         }

@@ -2,43 +2,82 @@
   {
     "id": "mutter-paneer",
     "name": "Mutter Paneer",
+    "creator": "Abhishek",
     "prepTime": "20",
     "ingredients": "12",
-    "src": "/assets/recipes/mutter-paneer.png"
+    "src": "/assets/recipes/butter-paneer.jpg",
+    "rating": "3.5"
   },
   {
     "id": "butter-paneer",
     "name": "Butter Paneer",
+    "creator": "Abhishek",
     "prepTime": "30",
     "ingredients": "8",
-    "src": "/assets/recipes/butter-paneer.jpg"
+    "src": "/assets/recipes/butter-paneer.jpg",
+    "rating": "3.5"
   },
   {
     "id": "kadai-paneer",
     "name": "Kadai Paneer",
+    "creator": "Abhishek",
     "prepTime": "25",
     "ingredients": "15",
-    "src": "/assets/recipes/kadai-paneer.png"
+    "src": "/assets/recipes/kadai-paneer.png",
+    "rating": "3.5"
   },
   {
     "id": "mutter-paneer",
     "name": "Mutter Paneer",
+    "creator": "Abhishek",
     "prepTime": "20",
     "ingredients": "12",
-    "src": "/assets/recipes/mutter-paneer.png"
+    "src": "/assets/recipes/butter-paneer.jpg",
+    "rating": "3.5"
   },
   {
     "id": "butter-paneer",
     "name": "Butter Paneer",
+    "creator": "Abhishek",
     "prepTime": "30",
     "ingredients": "8",
-    "src": "/assets/recipes/butter-paneer.jpg"
+    "src": "/assets/recipes/butter-paneer.jpg",
+    "rating": "3.5"
   },
   {
     "id": "kadai-paneer",
     "name": "Kadai Paneer",
+    "creator": "Abhishek",
     "prepTime": "25",
     "ingredients": "15",
-    "src": "/assets/recipes/kadai-paneer.png"
+    "src": "/assets/recipes/kadai-paneer.png",
+    "rating": "3.5"
+  },
+  {
+    "id": "mutter-paneer",
+    "name": "Mutter Paneer",
+    "creator": "Abhishek",
+    "prepTime": "20",
+    "ingredients": "12",
+    "src": "/assets/recipes/butter-paneer.jpg",
+    "rating": "3.5"
+  },
+  {
+    "id": "butter-paneer",
+    "name": "Butter Paneer",
+    "creator": "Abhishek",
+    "prepTime": "30",
+    "ingredients": "8",
+    "src": "/assets/recipes/butter-paneer.jpg",
+    "rating": "3.5"
+  },
+  {
+    "id": "kadai-paneer",
+    "name": "Kadai Paneer",
+    "creator": "Abhishek",
+    "prepTime": "25",
+    "ingredients": "15",
+    "src": "/assets/recipes/kadai-paneer.png",
+    "rating": "3.5"
   }
 ]

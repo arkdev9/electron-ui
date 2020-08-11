@@ -1,4 +1,5 @@
 import React, { useContext } from 'react'
+import { useHistory } from 'react-router-dom'
 import {
   Box,
   Drawer,
@@ -37,7 +38,6 @@ const styles = makeStyles(theme => ({
     background: theme.palette.secondary.main,
     width: windowHeight,
     padding: theme.spacing(2)
-    // TODO: Get rid of whitespace above and below
   },
   rightGridItem: {
     width: '100%',
@@ -48,15 +48,18 @@ const styles = makeStyles(theme => ({
 const leftCards = {
   Recipes: new Array(10).fill({
     id: 'kadai-paneer',
-    name: 'Kadai Paneer'
+    name: 'Kadai Paneer',
+    to: '/recipes'
   }),
   Control: new Array(10).fill({
     id: 'riku/user/ctrl/spice',
-    name: 'Spice Control'
+    name: 'Spice Control',
+    to: '/dev'
   }),
   Profile: new Array(10).fill({
     id: 'something',
-    name: 'Something'
+    name: 'Something',
+    to: '/riceCooker'
   })
 }
 
@@ -79,20 +82,28 @@ const rightCards = [
 ]
 
 export default function MasterControl () {
+  const history = useHistory()
   const darkTheme = getTheme({ paletteType: 'dark' })
   const appContext = useContext(AppContext)
   const classes = styles(useTheme())
+
+  function cardClickHandler (to) {
+    history.push(to)
+    appContext.toggleMasterControl()
+  }
+
   return (
     <Drawer
       anchor='left'
       open={appContext.appState.masterControl}
       onClose={() => appContext.toggleMasterControl()}
+      transitionDuration={500}
     >
       <Box height={windowHeight} width={windowWidth}>
         <Grid
           container
           direction='row'
-          justify='center'
+          justify='space-evenly'
           alignItems='center'
           className={classes.fullHeight}
         >
@@ -108,8 +119,8 @@ export default function MasterControl () {
               alignItems='flex-start'
               className={classes.fullHeight}
             >
-              {Object.keys(leftCards).map(leftCardsKey => (
-                <Grid key={leftCardsKey} item className={classes.leftGridItem}>
+              {Object.keys(leftCards).map((leftCardsKey, i) => (
+                <Grid key={i} item className={classes.leftGridItem}>
                   <Box pt={1} pl={1}>
                     <Typography variant='h4'>{leftCardsKey}</Typography>
                   </Box>
@@ -121,9 +132,12 @@ export default function MasterControl () {
                     spacing={2}
                     className={classes.leftGridHorizontal}
                   >
-                    {leftCards[leftCardsKey].map(card => (
-                      <Grid key={card.id} item>
-                        <Card className={classes.leftGridHorizontalItem}>
+                    {leftCards[leftCardsKey].map((card, i) => (
+                      <Grid key={i} item>
+                        <Card
+                          className={classes.leftGridHorizontalItem}
+                          onClick={() => cardClickHandler(card.to)}
+                        >
                           <CardHeader title={card.name} />
                           <CardContent>
                             <Typography>{card.name}</Typography>
@@ -136,12 +150,12 @@ export default function MasterControl () {
               ))}
             </Grid>
           </Grid>
-          <ThemeProvider theme={darkTheme}>
-            <Grid
-              item
-              md={4}
-              className={`${classes.rightGrid} ${classes.fullHeight}`}
-            >
+          <Grid
+            item
+            md={4}
+            className={`${classes.rightGrid} ${classes.fullHeight}`}
+          >
+            <ThemeProvider theme={darkTheme}>
               <Grid
                 container
                 direction='column'
@@ -149,8 +163,8 @@ export default function MasterControl () {
                 alignItems='center'
                 className={classes.fullHeight}
               >
-                {rightCards.map(card => (
-                  <Grid item key={card.type}>
+                {rightCards.map((card, i) => (
+                  <Grid item key={i}>
                     <Card className={classes.rightGridItem}>
                       <CardHeader title={card.title} />
                       <CardContent>
@@ -160,8 +174,8 @@ export default function MasterControl () {
                   </Grid>
                 ))}
               </Grid>
-            </Grid>
-          </ThemeProvider>
+            </ThemeProvider>
+          </Grid>
         </Grid>
       </Box>
     </Drawer>
