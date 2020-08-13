@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React from 'react'
 
 import {
   Card,
@@ -8,11 +8,9 @@ import {
   Typography,
   Divider,
   useTheme,
-  makeStyles,
-  Button
+  makeStyles
 } from '@material-ui/core'
 import { NavLink } from 'react-router-dom'
-import { AppContext } from '../App'
 
 const styles = makeStyles(theme => ({
   wrapper: {

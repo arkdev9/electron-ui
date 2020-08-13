@@ -164,7 +164,6 @@ export default function Recipes () {
                 >
                   <NativeSelect
                     input={<BootstrapInput />}
-                    value={filter.name}
                     defaultValue={filter.name}
                   >
                     {filter.options.map(option => (
