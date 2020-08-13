@@ -42,9 +42,9 @@ export default function Home () {
       text: 'Rice Cooker'
     },
     {
-      to: '/weighingScale',
+      to: '/weighScale',
       img: 'assets/home/weighingScale.png',
-      text: 'Weighing Scale'
+      text: 'Weigh Scale'
     },
     {
       to: '/spiceRack',
@@ -67,7 +67,7 @@ export default function Home () {
     <>
       {/* TODO: Replace Ana with user's name from state */}
       <Typography variant='body1' align='center'>
-        Hey Ana, what are you looking for?
+        Ana! What do you want?
       </Typography>
       <Divider />
       <Grid container direction='row' justify='center' alignItems='center'>

@@ -1,138 +1,184 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import { NavLink } from 'react-router-dom'
 import {
   Box,
+  FormControl,
+  NativeSelect,
+  InputBase,
   Grid,
   Typography,
-  makeStyles,
-  useTheme,
   Card,
+  CardHeader,
   CardMedia,
-  CardContent
+  CardContent,
+  ThemeProvider,
+  withStyles,
+  makeStyles,
+  useTheme
 } from '@material-ui/core'
 
-import recipesData from '../data/recipes.json'
+import { Timer, Star } from '@material-ui/icons'
 
-const iconGridStyles = makeStyles({
-  grid: {
-    width: '100%',
-    height: '100%',
-    textAlign: 'center'
-  },
-  img: {
-    width: '70%',
-    height: '70%',
-    margin: '15%'
+import recipesData from '../data/recipes.json'
+import getTheme, { windowHeight } from '../config/theme'
+
+const BootstrapInput = withStyles(theme => ({
+  input: {
+    position: 'relative',
+    backgroundColor: theme.palette.background.paper,
+    border: '1px solid #ced4da',
+    padding: '10px 26px 10px 12px',
+    transition: theme.transitions.create(['border-color', 'box-shadow']),
+    '&:focus': {
+      borderColor: '#80bdff',
+      boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)'
+    }
   }
-})
+}))(InputBase)
 
 const recipeGridStyles = makeStyles(theme => ({
   grid: {
+    overflow: 'scroll',
     flexWrap: 'nowrap',
-    overflowX: 'auto',
-    // Promote the list into its own layer on Chrome.
-    // This costs memory but helps keeping high FPS.
-    transform: 'translateZ(0)'
+    height: windowHeight,
+    paddingRight: theme.spacing(2)
+  },
+  gridItem: {
+    width: '100%',
+    marginBottom: theme.spacing(1),
+    marginTop: theme.spacing(1)
   },
   card: {
-    marginTop: `${theme.spacing(2)}px`,
-    width: 200,
-    padding: `${theme.spacing(2)}px`,
-    backgroundColor: 'transparent'
+    marginBottom: theme.spacing(1),
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'no-wrap'
   },
   img: {
-    height: 0,
-    paddingTop: '125%',
-    borderRadius: '5%'
+    height: 140,
+    width: 200
+  },
+  contentBox: {
+    '& .MuiCardContent-root': {
+      paddingTop: theme.spacing(1)
+    },
+    '& .MuiCardHeader-root': {
+      paddingBottom: theme.spacing(1)
+    }
+  },
+  iconBox: {
+    display: 'inline-flex',
+    marginLeft: theme.spacing(2)
+  },
+  iconCaption: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1)
   }
 }))
 
-const iconList = [
-  { src: 'assets/icons/breakfast.svg', caption: 'Breakfast' },
-  { src: 'assets/icons/lunch.svg', caption: 'Lunch' },
-  { src: 'assets/icons/meal.svg', caption: 'Dinner' },
-  { src: 'assets/icons/soup.svg', caption: 'Soup' },
-  { src: 'assets/icons/rice.svg', caption: 'Rice' },
-  { src: 'assets/icons/curry.svg', caption: 'Curry' }
+const filters = [
+  {
+    name: 'Spice',
+    options: ['High', 'Higher', 'Highest']
+  },
+  {
+    name: 'Meal-Time',
+    options: ['Under 30 min', 'Under 1 hour']
+  }
 ]
 
 export default function Recipes () {
-  const [recipes, setRecipes] = useState({})
-  const iconClasses = iconGridStyles(useTheme())
+  const [recipes, setRecipes] = useState([])
+  const darkTheme = getTheme({ paletteType: 'dark' })
   const recipeClasses = recipeGridStyles(useTheme())
 
   // TODO: We need to implement this in such a way that
   // the recipes are loaded from an external source
   function getRecipes () {
-    return recipesData
+    setRecipes(recipesData)
   }
-  // TODO: Use `useEffect` to get Recipes instead of mapping
-  // from getRecipes during render itself
+
+  useEffect(() => {
+    getRecipes()
+  })
 
   return (
-    <Box m={2}>
-      <Box mt={3} mb={5}>
-        <Box mb={2}>
-          <Typography variant='h5'>
-            Let's cook something great today!
-          </Typography>
-        </Box>
-        <Grid
-          container
-          direction='row'
-          justify='flex-start'
-          alignItems='center'
-        >
-          {iconList.map(icon => (
-            <Box
-              key={icon.caption}
-              borderRadius='50%'
-              border={1}
-              height={52}
-              width={52}
-              m={1}
-            >
-              <Grid item className={iconClasses.grid}>
-                <img
-                  src={icon.src}
-                  className={iconClasses.img}
-                  alt={icon.caption}
-                />
-                <Typography variant='caption'>{icon.caption}</Typography>
-              </Grid>
-            </Box>
-          ))}
-        </Grid>
-      </Box>
-      <Box>
-        <Typography variant='h5'>You may like</Typography>
-        {/* TODO: Get rid of the scrollbar */}
-        <Box mr={-4} ml={-4} mt={-2}>
+    <Box ml={2} mr={2}>
+      <Grid container>
+        <Grid item md={8}>
           <Grid
             container
-            direction='row'
+            direction='column'
             justify='flex-start'
             alignItems='center'
             className={recipeClasses.grid}
           >
-            {getRecipes().map(recipe => (
-              <Grid item key={recipe.id}>
-                <Link to={`/recipes/${recipe.id}`}>
-                  <Card className={recipeClasses.card} elevation={0}>
+            {recipes.map((recipe, i) => (
+              <Grid item className={recipeClasses.gridItem} key={i}>
+                <NavLink to={`/recipes/${recipe.id}`}>
+                  <Card elevation={0} className={recipeClasses.card}>
                     <CardMedia
                       image={recipe.src}
                       className={recipeClasses.img}
                     />
-                    <CardContent align='center'>
-                      <Typography variant='caption'>{recipe.name}</Typography>
-                    </CardContent>
+                    <Box className={recipeClasses.contentBox}>
+                      <CardHeader title={recipe.name} />
+                      <CardContent>
+                        <Typography>By {recipe.creator}</Typography>
+                      </CardContent>
+                      <Box className={recipeClasses.iconBox}>
+                        <Timer />
+                        <Typography className={recipeClasses.iconCaption}>
+                          35 min
+                        </Typography>
+                        <Star />
+                        <Typography className={recipeClasses.iconCaption}>
+                          {recipe.rating}
+                        </Typography>
+                      </Box>
+                    </Box>
                   </Card>
-                </Link>
+                </NavLink>
               </Grid>
             ))}
           </Grid>
-        </Box>
-      </Box>
+        </Grid>
+        <Grid item md={4}>
+          <ThemeProvider theme={darkTheme}>
+            <Box
+              height='100%'
+              mr={-2}
+              bgcolor={darkTheme.palette.secondary.main}
+              textAlign='center'
+            >
+              {filters.map((filter, i) => (
+                <FormControl
+                  key={i}
+                  style={{
+                    // TOODO: Put these in  makeStyles
+                    width: '80%',
+                    marginTop: '8px',
+                    marginBottom: '8px'
+                  }}
+                >
+                  <NativeSelect
+                    input={<BootstrapInput />}
+                    defaultValue={filter.name}
+                  >
+                    {filter.options.map(option => (
+                      // Needs a handler
+                      <option key={option} value={option}>
+                        {option}
+                      </option>
+                    ))}
+                  </NativeSelect>
+                </FormControl>
+              ))}
+            </Box>
+          </ThemeProvider>
+        </Grid>
+      </Grid>
     </Box>
   )
 }

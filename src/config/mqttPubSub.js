@@ -179,6 +179,13 @@ export function homeSpiceRack () {
   ])
 }
 
+export function homeIngredientRack () {
+  return array2Obj([
+    ControlPubDictionary.MQTT_COOK_CTRL,
+    IngredientRackPubDictionary.INGREDIENT_STAT_HOME
+  ])
+}
+
 export function moveSpiceRack2Position (position) {
   return array2Obj([
     ControlPubDictionary.MQTT_SPICE_CTRL,

@@ -1,7 +1,7 @@
 {
   "name": "riku-device-ui",
   "author": "Abhishek Kasireddy <abhishek.kasireddy@ftlabs.io>",
-  "version": "0.0.2",
+  "version": "0.0.203",
   "private": true,
   "homepage": "./",
   "dependencies": {

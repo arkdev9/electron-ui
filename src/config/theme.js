@@ -3,21 +3,24 @@ import { createMuiTheme } from '@material-ui/core'
 export const spacing = 8
 export const windowWidth = 1024
 export const windowHeight = 600
+/**
+ * @param {} themeRoot Need to specify paletteType in themeRoot. e.g. `getTheme({paletteType: 'light'})`
+ */
 export default function getTheme (themeRoot) {
   return createMuiTheme({
     spacing: spacing,
     palette: {
       type: themeRoot.paletteType,
       background: {
-        default: themeRoot.paletteType === 'light' ? '#fff' : '#111111'
+        default: themeRoot.paletteType === 'light' ? '#fff' : '#313131'
       },
       primary: {
         main: '#FFFFFF'
         // secondary: '#FF5800'
       },
       secondary: {
-        main: '#FF5800',
-        secondary: '#FDFDFD'
+        main: '#313131',
+        light: '#707070'
       }
     },
     typography: {
@@ -40,7 +43,13 @@ export default function getTheme (themeRoot) {
         root: {
           width: '80%',
           marginLeft: '10%',
-          marginTop: `${spacing * 2}px`
+          marginTop: `${spacing * 1}px`,
+          marginBottom: `${spacing * 1}px`
+        }
+      },
+      MuiPaper: {
+        rounded: {
+          borderRadius: '0px'
         }
       }
     },
