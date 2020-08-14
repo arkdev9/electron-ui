@@ -77,16 +77,6 @@ class MotorController extends Component {
     this.publishMessage(message, topics.control.liquid)
   }
 
-  componentDidMount () {
-    // eslint-disable-next-line no-unused-vars
-    const { data, mqttProps, mqtt } = this.props
-    mqtt.on('message', data => {
-      console.log(this.props.data)
-      const payload = this.props.data.pop()
-      console.log(payload)
-    })
-  }
-
   handleModal () {
     this.setState({ ...this.state, openWorkingModal: false })
   }

@@ -1,14 +1,11 @@
 import React, { useState } from 'react'
-import {
-  Grid,
-  makeStyles,
-  useTheme,
-  Typography,
-  Box,
-  Button
-} from '@material-ui/core'
+import { subscribe } from 'mqtt-react'
+import { Grid, withStyles, Typography, Box, Button } from '@material-ui/core'
+import * as PubSubBridge from '../../config/mqttPubSub'
+import topics from '../../config/topicMap'
+import getTheme from '../../config/theme'
 
-const styles = makeStyles(theme => ({
+const useStyles = theme => ({
   gridContainer: {
     height: '100%'
   },
@@ -34,141 +31,167 @@ const styles = makeStyles(theme => ({
   prepButtonGrid: {
     marginTop: theme.spacing(2)
   }
-}))
+})
 
-export default function (props) {
+class Prep extends React.Component {
   // Load initial ingredients from props
-  const [ingredients, setIngredients] = useState(['Onion', 'Chicken', 'Paneer'])
-  const [ingredientPointer, setIngredientPointer] = useState(0)
-  const [prepStep, setPrepStep] = useState(0)
-  const classes = styles(useTheme())
+  constructor (props) {
+    super(props)
 
-  function nextIngredient () {
-    if (ingredientPointer === ingredients.length - 1) {
-      props.handleStep()
+    this.state = {
+      ingredients: ['Onion', 'Chicken', 'Paneer'],
+      ingredientPointer: 0,
+      prepStep: 0
     }
-    setPrepStep(0)
-    setIngredientPointer(ingredientPointer + 1)
   }
 
-  return (
-    <Box p={2} width='100%' height='100%' border='1px solid black'>
-      <Grid
-        container
-        direction='column'
-        justify='space-evenly'
-        alignItems='center'
-        className={classes.gridContainer}
-      >
-        {/* The progress bar */}
-        <Grid item style={{ height: '20%', width: '100%' }}>
-          <Grid
-            container
-            direction='row'
-            justify='space-evenly'
-            alignItems='center'
-          >
-            {ingredients.map((ingredient, i) => (
-              <Grid item key={i}>
-                <Box
-                  height={40}
-                  width={40}
-                  bgcolor={i < ingredientPointer ? 'green' : 'red'}
-                />
-              </Grid>
-            ))}
-          </Grid>
-        </Grid>
-        {/* The Prep boxes */}
+  setPrepStep (step) {
+    this.setState({ ...this.state, prepStep: step })
+  }
+
+  setIngredientPointer (pointer) {
+    this.setState({ ...this.state, ingredientPointer: pointer })
+  }
+
+  nextIngredient () {
+    if (this.state.ingredientPointer === this.state.ingredients.length - 1) {
+      this.props.handleStep()
+    }
+    this.setPrepStep(0)
+    this.setIngredientPointer(this.state.ingredientPointer + 1)
+  }
+
+  render () {
+    const { classes } = this.props
+    return (
+      <Box p={2} width='100%' height='100%' border='1px solid black'>
         <Grid
-          item
-          className={classes.bottomGrid}
-          style={{ height: '80%', background: 'gray' }}
+          container
+          direction='column'
+          justify='space-evenly'
+          alignItems='center'
+          className={classes.gridContainer}
         >
-          <Grid
-            container
-            direction='row'
-            justify='space-evenly'
-            alignItems='center'
-            style={{ height: '100%' }}
-          >
-            <Grid item className={classes.prepBox}>
-              {prepStep !== 0 && <Box className={classes.grayBox} />}
-              <Box marginTop={prepStep !== 0 && '-200%'}>
-                <Typography variant='h4'>Preperation</Typography>
-                <iframe
-                  title='prep'
-                  width='100%'
-                  src='https://www.youtube.com/embed/c7yytbDsnCI'
-                  frameBorder='0'
-                  allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture'
-                  allowFullScreen={false}
-                  className={classes.prepVideo}
-                />
-                <Typography>Some description of the process</Typography>
-                <Grid
-                  container
-                  direction='row'
-                  justify='space-evenly'
-                  alignItems='center'
-                  className={classes.prepButtonGrid}
-                >
-                  <Grid item>
-                    <Button variant='contained' color='secondary'>
-                      Skip
-                    </Button>
-                  </Grid>
-                  <Grid item>
-                    <Button
-                      variant='contained'
-                      color='secondary'
-                      onClick={() => setPrepStep(1)}
-                    >
-                      Next
-                    </Button>
-                  </Grid>
+          {/* The progress bar */}
+          <Grid item style={{ height: '20%', width: '100%' }}>
+            <Grid
+              container
+              direction='row'
+              justify='space-evenly'
+              alignItems='center'
+            >
+              {this.state.ingredients.map((ingredient, i) => (
+                <Grid item key={i}>
+                  <Box
+                    height={40}
+                    width={40}
+                    bgcolor={i < this.state.ingredientPointer ? 'green' : 'red'}
+                  />
                 </Grid>
-              </Box>
+              ))}
             </Grid>
-            <Grid item className={classes.prepBox}>
-              {prepStep !== 1 && <Box className={classes.grayBox} />}
-              <Box marginTop={prepStep !== 1 && '-200%'}>
-                <Typography variant='h4'>Weigh</Typography>
-                <Button
-                  variant='contained'
-                  color='secondary'
-                  onClick={() => setPrepStep(2)}
-                >
-                  Continue
-                </Button>
-              </Box>
-            </Grid>
-            <Grid item className={classes.prepBox}>
-              {prepStep !== 2 && <Box className={classes.grayBox} />}
-              <Box marginTop={prepStep !== 2 && '-200%'}>
-                <Typography variant='h4'>Load</Typography>
-                <img
-                  style={{
-                    width: '80%',
-                    marginTop: '8px',
-                    marginLeft: '50%',
-                    transform: 'translateX(-50%)'
-                  }}
-                  src='/assets/recipes/loader.png'
-                  alt='Loader'
-                />
-                <Button
-                  variant='contained'
-                  color='secondary'
-                  onClick={nextIngredient}
-                >
-                  Next
-                </Button>
-              </Box>
+          </Grid>
+          {/* The Prep boxes */}
+          <Grid
+            item
+            className={classes.bottomGrid}
+            style={{ height: '80%', background: 'gray' }}
+          >
+            <Grid
+              container
+              direction='row'
+              justify='space-evenly'
+              alignItems='center'
+              style={{ height: '100%' }}
+            >
+              <Grid item className={classes.prepBox}>
+                {this.state.prepStep !== 0 && (
+                  <Box className={classes.grayBox} />
+                )}
+                <Box mt={this.state.prepStep !== 0 && '-200%'}>
+                  <Typography variant='h4'>Preperation</Typography>
+                  <iframe
+                    title='prep'
+                    width='100%'
+                    src='https://www.youtube.com/embed/c7yytbDsnCI'
+                    frameBorder='0'
+                    allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture'
+                    allowFullScreen={false}
+                    className={classes.prepVideo}
+                  />
+                  <Typography>Some description of the process</Typography>
+                  <Grid
+                    container
+                    direction='row'
+                    justify='space-evenly'
+                    alignItems='center'
+                    className={classes.prepButtonGrid}
+                  >
+                    <Grid item>
+                      <Button variant='contained' color='secondary'>
+                        Skip
+                      </Button>
+                    </Grid>
+                    <Grid item>
+                      <Button
+                        variant='contained'
+                        color='secondary'
+                        onClick={() => this.setPrepStep(1)}
+                      >
+                        Next
+                      </Button>
+                    </Grid>
+                  </Grid>
+                </Box>
+              </Grid>
+              <Grid item className={classes.prepBox}>
+                {this.state.prepStep !== 1 && (
+                  <Box className={classes.grayBox} />
+                )}
+                <Box mt={this.state.prepStep !== 1 && '-200%'}>
+                  <Typography variant='h4'>Weigh</Typography>
+                  <Button
+                    variant='contained'
+                    color='secondary'
+                    onClick={() => this.setPrepStep(2)}
+                  >
+                    Continue
+                  </Button>
+                </Box>
+              </Grid>
+              <Grid item className={classes.prepBox}>
+                {this.state.prepStep !== 2 && (
+                  <Box className={classes.grayBox} />
+                )}
+                <Box mt={this.state.prepStep !== 2 && '-200%'}>
+                  <Typography variant='h4'>Load</Typography>
+                  <img
+                    style={{
+                      width: '80%',
+                      marginTop: '8px',
+                      marginLeft: '50%',
+                      transform: 'translateX(-50%)'
+                    }}
+                    src='/assets/recipes/loader.png'
+                    alt='Loader'
+                  />
+                  <Button
+                    variant='contained'
+                    color='secondary'
+                    onClick={this.nextIngredient()}
+                  >
+                    Next
+                  </Button>
+                </Box>
+              </Grid>
             </Grid>
           </Grid>
         </Grid>
-      </Grid>
-    </Box>
-  )
+      </Box>
+    )
+  }
 }
+
+export default subscribe({
+  topic: topics.status.ingredient
+})(withStyles(useStyles)(Prep))

@@ -27,10 +27,11 @@ export function getRecipe (recipeId) {
 export default function Recipe () {
   const classes = styles(useTheme())
   const recipe = getRecipe(useParams().recipeId)
-  const [progress, setProgress] = useState(0)
+  const [progress, setProgress] = useState(4)
   const [progressSquares, setProgressSquares] = useState(
     new Array(5).fill(false)
   )
+  console.log(progress)
 
   function handleStep () {
     // TODO: Move the step
