@@ -27,7 +27,7 @@ export function getRecipe (recipeId) {
 export default function Recipe () {
   const classes = styles(useTheme())
   const recipe = getRecipe(useParams().recipeId)
-  const [progress, setProgress] = useState(4)
+  const [progress, setProgress] = useState(0)
   const [progressSquares, setProgressSquares] = useState(
     new Array(5).fill(false)
   )

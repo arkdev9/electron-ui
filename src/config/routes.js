@@ -1,11 +1,4 @@
-import {
-  Home,
-  Recipes,
-  Recipe,
-  Dashboard,
-  WeighScale,
-  Ingredients
-} from '../pages'
+import { Home, Recipes, Recipe, Dashboard, WeighScale, Spices } from '../pages'
 
 const paths = [
   {
@@ -14,8 +7,8 @@ const paths = [
     component: Home
   },
   {
-    path: '/recipes/:recipeId/ingredients',
-    component: Ingredients
+    path: '/spices',
+    component: Spices
   },
   {
     path: '/recipes/:recipeId',
