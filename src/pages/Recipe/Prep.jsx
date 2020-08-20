@@ -137,9 +137,7 @@ export default function (props) {
               {prepStep !== 1 && <Box className={classes.grayBox} />}
               <Box marginTop={prepStep !== 1 ? '-200%' : 0}>
                 <Typography variant='h4'>Weigh</Typography>
-                <Typography>
-                  <WeighScaleReadings />
-                </Typography>
+                <WeighScaleReadings />
                 <Button
                   variant='contained'
                   color='secondary'
@@ -186,10 +184,15 @@ class SubscribedComponent extends React.Component {
   }
 
   render () {
-    return this.props.data
+    const data = this.props.data
+    return (
+      <Typography>
+        {data[0] ? data[0].weight : "Can't connect to weighing scale"}
+      </Typography>
+    )
   }
 }
 
 const WeighScaleReadings = subscribe({
-  topic: topics.status.ingredient
+  topic: 'Riku/WeighingScale/Updates'
 })(SubscribedComponent)

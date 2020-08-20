@@ -1,27 +1,32 @@
-import React from 'react'
-import { Typography, Box, Grid, Card, CardMedia } from '@material-ui/core'
+import React, { useState } from 'react'
+import { Box, Button } from '@material-ui/core'
+import Mixes from './Mixes'
+import Spices from './Spices'
 
-export default function () {
+export default function SpicesIndex () {
+  const [mixesView, toggleMixesView] = useState(false)
+
   return (
     <Box p={2}>
-      <Typography>Spice Mixes</Typography>
-      <Grid
-        container
-        direction='row'
-        justify='space-evenly'
-        alignItems='center'
-      >
-        {['salt', 'cinnamon', 'pepper'].map()}
-        <Grid item>
-          <Card>
-            <CardMedia
-              src='/assets/spices/spicebox.png'
-              alt='spicebox'
-              style={{ width: '40px' }}
-            />
-          </Card>
-        </Grid>
-      </Grid>
+      <Box mb={2} width='100%'>
+        <Button
+          variant={mixesView ? 'outlined' : 'contained'}
+          color='secondary'
+          onClick={() => toggleMixesView(!mixesView)}
+          style={{ width: '50%' }}
+        >
+          Spices
+        </Button>
+        <Button
+          variant={mixesView ? 'contained' : 'outlined'}
+          color='secondary'
+          onClick={() => toggleMixesView(!mixesView)}
+          style={{ width: '50%' }}
+        >
+          Spice Mixes
+        </Button>
+      </Box>
+      {mixesView ? <Mixes /> : <Spices />}
     </Box>
   )
 }

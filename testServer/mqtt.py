@@ -91,4 +91,4 @@ while True:
     mqttc.publish('LiquidStation/Updates', json.dumps(payload3), 0)
     mqttc.publish('Riku/Firmware/PubAll', json.dumps(payload))
     mqttc.publish('Riku/Firmware/SubParams', json.dumps(payload2))
-    time.sleep(2)
+    time.sleep(1)
